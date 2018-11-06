@@ -25,24 +25,29 @@ public class Deck {
     }
 
     public static void toShuffle(){
-        Card temp = new Card(String suit, String value);
+        Card temp ;
 
 
        for(int i = 0; i <52; i ++) {
 
            int swap = (int) (Math.random() * 51);
-           deck[i] = temp;
-           deck[swap] = deck[i];
-           temp = deck[swap];
+           temp = deck[i];
+           deck[i] = deck[swap];
+           deck[swap] = temp;
        }
     }
 
-    public void toString1() {
+
+
+
+    public String  toString1() {
+        String str = "";
         for (Card c: deck) {
 
 
-            System.out.print(c.getValue()+" "+c.getSuit()+ "\n");
+           str += (c.getValue()+" "+c.getSuit()+ "\n");
         }
+        return str;
 
     }
 
