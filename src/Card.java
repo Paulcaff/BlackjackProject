@@ -1,9 +1,13 @@
 public class Card {
 
     private String suit;
-    private int value;
+    private String value;
 
-    public Card(String suit, int value){
+    public Card(){
+        this ("0", "0");
+    }
+
+    public Card(String suit, String value){
         setSuit(suit);
         setValue(value);
     }
@@ -12,11 +16,11 @@ public class Card {
         this.suit = suit;
     }
 
-    public void setValue(int value) {
+    public void setValue(String value) {
         this.value = value;
     }
 
-    public int getValue() {
+    public String getValue() {
         return value;
     }
 
