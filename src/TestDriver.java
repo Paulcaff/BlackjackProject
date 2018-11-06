@@ -6,5 +6,9 @@ public class TestDriver {
       Deck d = new Deck();
 
        d.toString1();
+       Deck.toShuffle();
+       d.toString1();
+
+
     }
 }
