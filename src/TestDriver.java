@@ -77,4 +77,9 @@ public class TestDriver {
 
 
     }
+
+    public Card getnewCard(){
+
+        return Card;
+    }
 }

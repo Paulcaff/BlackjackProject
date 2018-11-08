@@ -2,7 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public class GameGUI extends JFrame {
+public class GameGUI extends JFrame implements ActionListener {
 
     JButton stick;
     JButton newCard;
@@ -63,11 +63,22 @@ public class GameGUI extends JFrame {
         contentPane.add(stick);
 
         newCard = new JButton("New Card");
+        newCard.addActionListener((ActionEvent e)->{
+            getnewCard();
+        });
         newCard.setBounds(250,500,120,50);
         contentPane.add(newCard);
 
         close = new JButton("Close Game");
+        close.addActionListener((ActionEvent e)->{
+            System.exit(0);
+        });
         close.setBounds(450,500,120,50);
         contentPane.add(close);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
     }
 }
