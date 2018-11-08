@@ -2,7 +2,7 @@ public class Card {
 
     private String suit;
     private String value;
-    private int number = 1;
+    private int number = 0;
 
     public Card(){
         this ("0", "0");
@@ -100,6 +100,6 @@ public class Card {
     }
 
     public String toString(){
-        return "Suit : "+suit + "\nValue : "+value+ "\nNumber Value : "+number;
+        return "\nCard:"+value+" "+ suit  + "\nNumber Value : "+number;
     }
 }

@@ -8,7 +8,6 @@ public class Deck {
     //constructor
     public Deck() {
         deck = new Card[52];
-
         int counter = 0;
 
         String[] value = {"Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Jack", "Queen", "King", "Ace"};
@@ -37,10 +36,15 @@ public class Deck {
        }
     }
 
+    public Card returnCard(int value){
+
+    return deck[value];
+    }
 
 
 
-    public String  toString1() {
+
+    public String  toString() {
         String str = "";
         for (Card c: deck) {
 
