@@ -54,6 +54,18 @@ public class TestDriver {
             JOptionPane.showMessageDialog(null, "Hand Total : " + dealerTotal);
         }
 
+        String input = JOptionPane.showInputDialog(null,"y for card n to stick");
+
+        while(input.equals("y")){
+
+            playerCards.add(d2.returnCard(5));
+            playerTotal += d2.returnCard(5).getNumber();
+            JOptionPane.showMessageDialog(null, "Hand Total : " + playerTotal);
+            
+        }
+
+        JOptionPane.showMessageDialog(null, "Hand Total : " + playerTotal);
+
 
 
     }
