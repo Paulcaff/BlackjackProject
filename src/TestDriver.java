@@ -12,6 +12,7 @@ public class TestDriver {
       Deck d = new Deck();
       Deck d2 = new Deck();
       Card c = new Card();
+      GameGUI game = new GameGUI();
 
 
 
@@ -56,13 +57,20 @@ public class TestDriver {
 
         String input = JOptionPane.showInputDialog(null,"y for card n to stick");
 
+        int counter = 4;
+
         while(input.equals("y")){
 
-            playerCards.add(d2.returnCard(5));
-            playerTotal += d2.returnCard(5).getNumber();
+            counter++;
+
+            playerCards.add(d2.returnCard(counter));
+            playerTotal += d2.returnCard(counter).getNumber();
             JOptionPane.showMessageDialog(null, "Hand Total : " + playerTotal);
+                break;
+            }
+
             
-        }
+
 
         JOptionPane.showMessageDialog(null, "Hand Total : " + playerTotal);
 
