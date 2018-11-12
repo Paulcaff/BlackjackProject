@@ -3,14 +3,16 @@ import javax.swing.*;
 public class Deck {
 
     private static Card[] deck;
+    private int dealCount;
 
 
     //constructor
     public Deck() {
         deck = new Card[52];
         int counter = 0;
+        this.dealCount = 0;
 
-        String[] value = {"Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Jack", "Queen", "King", "Ace"};
+        String[] value = {"2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King", "Ace"};
         String[] suit = {"Hearts", "Diamonds", "Clubs", "Spades"};
 
             for (int i = 0; i < 4; i++) {
@@ -36,9 +38,9 @@ public class Deck {
        }
     }
 
-    public Card returnCard(int value){
-
-    return deck[value];
+    public Card returnCard(){
+    dealCount++;
+    return deck[dealCount - 1];
     }
 
 
@@ -55,10 +57,9 @@ public class Deck {
 
     }
 
-    public Card getNewCard (int counter){
 
-        playersCards.add(deck[counter]);
-    }
+
+
 
 
 

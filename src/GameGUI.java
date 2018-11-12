@@ -11,14 +11,19 @@ public class GameGUI extends JFrame implements ActionListener {
     JLabel username;
     JLabel gameBalance;
     JLabel stake;
+    private static JTextArea playerCards = new JTextArea();
+
 
     Player player = new Player();
     int bet = 10;
 
+    public static Deck d2;
 
 
     public static void main (String [] args) {
+        d2 = new Deck();
         GameGUI game = new GameGUI();
+
     }
 
     public GameGUI () {
@@ -57,28 +62,52 @@ public class GameGUI extends JFrame implements ActionListener {
         username.setLocation(100,400);
         contentPane.add(username);
 
+
         // construct 3 buttons
         stick = new JButton("Stick");
         stick.setBounds(50,500,120,50);
         contentPane.add(stick);
 
+
         newCard = new JButton("New Card");
-        newCard.addActionListener((ActionEvent e)->{
-            //getnewCard();
-        });
         newCard.setBounds(250,500,120,50);
         contentPane.add(newCard);
+        newCard.addActionListener((ActionEvent e)->{
+            playerCards.append(d2.returnCard().cardString());
+            //JOptionPane.showMessageDialog(null,playerCards);
+            //repaint();
+
+
+        });
+
 
         close = new JButton("Close Game");
+        close.setBounds(450,500,120,50);
+        contentPane.add(close);
         close.addActionListener((ActionEvent e)->{
             System.exit(0);
         });
-        close.setBounds(450,500,120,50);
-        contentPane.add(close);
+
+
+        
+        playerCards.setLocation(playersCardLocation);
+        contentPane.add(playerCards);
+
+
+
+
+
+
+
+
+
+
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
 
     }
+
+
 }

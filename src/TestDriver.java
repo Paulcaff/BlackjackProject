@@ -5,49 +5,48 @@ public class TestDriver {
 
     public static void main(String[] args) {
 
-        ArrayList<Card> playerCards= new ArrayList<Card>();
-        ArrayList<Card> dealerCards= new ArrayList<Card>();
+        ArrayList<Card> playerCards = new ArrayList<Card>();
+        ArrayList<Card> dealerCards = new ArrayList<Card>();
 
-      Player player = new Player();
-      Deck d = new Deck();
-      Deck d2 = new Deck();
-      Card c = new Card();
-      GameGUI game = new GameGUI();
+        Player player = new Player();
+        Deck d = new Deck();
+        Deck d2 = new Deck();
+        Card c = new Card();
+        GameGUI game = new GameGUI();
 
 
-
-        JOptionPane.showMessageDialog(null,d.toString());
+        JOptionPane.showMessageDialog(null, d.toString());
 
         Deck.toShuffle();
-        JOptionPane.showMessageDialog(null,d2.toString());
-        JOptionPane.showMessageDialog(null,c.toString());
+        JOptionPane.showMessageDialog(null, d2.toString());
+        JOptionPane.showMessageDialog(null, c.toString());
 
-       // dealerCards.add("1");
+        // dealerCards.add("1");
         //dealerCards.add("2");
 
-       // JOptionPane.showMessageDialog(null,"array list : "+ playerCards);
+        // JOptionPane.showMessageDialog(null,"array list : "+ playerCards);
 
         int playerTotal = 0;
         int dealerTotal = 0;
 
-        for(int i = 0; i < 4; i++) {
+        for (int i = 0; i < 4; i++) {
 
-            playerCards.add(d2.returnCard(i));
+            playerCards.add(d2.returnCard());
             i++;
 
-            playerCards.add(d2.returnCard(i));
-            i++;
-
-
-            dealerCards.add(d2.returnCard(i));
-            i++;
-
-            dealerCards.add(d2.returnCard(i));
+            playerCards.add(d2.returnCard());
             i++;
 
 
-            playerTotal += d2.returnCard(0).getNumber() + d2.returnCard(1).getNumber();
-            dealerTotal += d2.returnCard(2).getNumber() + d2.returnCard(3).getNumber();
+            dealerCards.add(d2.returnCard());
+            i++;
+
+            dealerCards.add(d2.returnCard());
+            i++;
+
+
+            playerTotal += d2.returnCard().getNumber() + d2.returnCard().getNumber();
+            dealerTotal += d2.returnCard().getNumber() + d2.returnCard().getNumber();
 
             JOptionPane.showMessageDialog(null, "array list : " + playerCards);
             JOptionPane.showMessageDialog(null, "array list : " + dealerCards);
@@ -55,31 +54,25 @@ public class TestDriver {
             JOptionPane.showMessageDialog(null, "Hand Total : " + dealerTotal);
         }
 
-        String input = JOptionPane.showInputDialog(null,"y for card n to stick");
+        String input = JOptionPane.showInputDialog(null, "y for card n to stick");
 
         int counter = 4;
 
-        while(input.equals("y")){
+        while (input.equals("y")) {
 
             counter++;
 
-            playerCards.add(d2.returnCard(counter));
-            playerTotal += d2.returnCard(counter).getNumber();
+            //playerCards.add(d2.returnCard(counter));
+            //playerTotal += d2.returnCard(counter).getNumber();
             JOptionPane.showMessageDialog(null, "Hand Total : " + playerTotal);
-                break;
-            }
-
-            
+            break;
+        }
 
 
         JOptionPane.showMessageDialog(null, "Hand Total : " + playerTotal);
 
 
 
+        }
     }
 
-    public Card getnewCard(){
-
-        return Card;
-    }
-}

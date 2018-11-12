@@ -1,3 +1,5 @@
+import javax.swing.*;
+
 public class Card {
 
     private String suit;
@@ -47,38 +49,38 @@ public class Card {
         switch(value) {
 
 
-            case "Two":
+            case "2":
                 setNumber(2);
                 break;
 
-            case "Three":
+            case "3":
                 setNumber(3);
                 break;
 
-            case "Four":
+            case "4":
                 setNumber(4);
                 break;
 
-            case "Five":
+            case "5":
                 setNumber(5);
                 break;
 
-            case "Six":
+            case "6":
                 setNumber(6);
                 break;
 
-            case "Seven":
+            case "7":
                 setNumber(7);
                 break;
 
-            case "Eight":
+            case "8":
                 setNumber(8);
                 break;
-                case "Nine":
+                case "9":
                 setNumber(9);
                 break;
 
-                case "Ten":
+                case "10":
                 setNumber(10);
                 break;
 
@@ -101,6 +103,10 @@ public class Card {
 
     public String toString(){
         return "\nCard:"+value+" "+ suit  + "\nNumber Value : "+number;
+    }
+
+    public String cardString(){
+        return ""+value+" "+ suit+ "\n\n\n        "+value+" "+ suit;
     }
 
 
