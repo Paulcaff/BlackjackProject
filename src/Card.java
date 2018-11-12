@@ -102,4 +102,6 @@ public class Card {
     public String toString(){
         return "\nCard:"+value+" "+ suit  + "\nNumber Value : "+number;
     }
+
+
 }

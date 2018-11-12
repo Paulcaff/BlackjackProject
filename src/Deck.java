@@ -55,6 +55,11 @@ public class Deck {
 
     }
 
+    public Card getNewCard (int counter){
+
+        playersCards.add(deck[counter]);
+    }
+
 
 
 }

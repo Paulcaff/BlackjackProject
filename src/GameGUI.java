@@ -64,7 +64,7 @@ public class GameGUI extends JFrame implements ActionListener {
 
         newCard = new JButton("New Card");
         newCard.addActionListener((ActionEvent e)->{
-            getnewCard();
+            //getnewCard();
         });
         newCard.setBounds(250,500,120,50);
         contentPane.add(newCard);
