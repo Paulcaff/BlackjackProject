@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.io.*;
 import java.util.ArrayList;
 
 public class TestDriver {
@@ -73,6 +74,28 @@ public class TestDriver {
 
 
         JOptionPane.showMessageDialog(null, "Hand Total : " + playerTotal);
+
+
+
+        }
+
+        public static void saveProfile(Player player) throws FileNotFoundException {
+            File file = new File("Player.dat");
+            FileOutputStream fos = new FileOutputStream(file);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
+
+            oos.writeObject(player);
+            oos.close();
+        }
+
+        public static void loadProfile(){
+            File file = new File("Player.dat");
+            FileInputStream fis = new FileInputStream(file);
+            ObjectInputStream ois = new ObjectInputStream(fis);
+
+            Player player = ois.readObject();
+            ois.close();
+
 
 
 
