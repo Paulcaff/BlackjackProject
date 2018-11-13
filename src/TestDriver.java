@@ -5,14 +5,12 @@ public class TestDriver {
 
     public static void main(String[] args) {
 
-        Player user = new Player("Paul",1000);
-        JMenuFrame jmf = new JMenuFrame();
-        jmf.setVisible(true);
-        GameGUI game = new GameGUI();
 
-       /* ArrayList<Card> playerCards = new ArrayList<Card>();
+
+        ArrayList<Card> playerCards = new ArrayList<Card>();
         ArrayList<Card> dealerCards = new ArrayList<Card>();
 
+        JMenuFrame frame = new JMenuFrame();
         Player player = new Player();
         Deck d = new Deck();
         Deck d2 = new Deck();
@@ -78,6 +76,6 @@ public class TestDriver {
 
 
 
-        }*/
+        }
     }
-}
+

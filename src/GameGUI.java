@@ -67,6 +67,10 @@ public class GameGUI extends JFrame implements ActionListener {
         stick = new JButton("Stick");
         stick.setBounds(50,500,120,50);
         contentPane.add(stick);
+        stick.addActionListener((ActionEvent e)->{
+            JOptionPane.showMessageDialog(null,"NO MORE CARDS ");
+
+        });
 
 
         newCard = new JButton("New Card");
@@ -74,8 +78,8 @@ public class GameGUI extends JFrame implements ActionListener {
         contentPane.add(newCard);
         newCard.addActionListener((ActionEvent e)->{
             playerCards.append(d2.returnCard().cardString());
-            //JOptionPane.showMessageDialog(null,playerCards);
-            //repaint();
+           // JOptionPane.showMessageDialog(null,playerCards);
+           // repaint();
 
 
         });

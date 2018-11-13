@@ -96,7 +96,8 @@ public class JMenuFrame extends JFrame implements ActionListener {
         item.addActionListener(this);
         game.add(item);
         item.addActionListener((ActionEvent e)->{
-           System.exit(0);
+         String  username = JOptionPane.showInputDialog("Please enter your username here :");
+         Double balance = Double.parseDouble(JOptionPane.showInputDialog(null,"Please enter the amount you want to deposit :"));
 
         });
 
@@ -107,7 +108,7 @@ public class JMenuFrame extends JFrame implements ActionListener {
         game.add(item);
         item.addActionListener((ActionEvent e)->{
 
-            JOptionPane.showMessageDialog(null, "Action Listener here");
+            String  username = JOptionPane.showInputDialog("Please enter your username here :");
 
         });
 
