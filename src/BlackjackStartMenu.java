@@ -1,3 +1,4 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -16,19 +17,19 @@ public class BlackjackStartMenu extends JFrame implements ActionListener {
 
     private JMenu game;
     private JMenu rules;
-    private JLabel imageLabel;
-    private ImageIcon blackjack;
+    private JPanel imagePanel;
     private static BlackjackStartMenu frame;
 
 
 
 
-    public static void main(String[] args) {
+
+    public static void main(String[] args) throws IOException {
         frame = new BlackjackStartMenu();
         frame.setVisible(true);
     }
 
-    public BlackjackStartMenu() {
+    public BlackjackStartMenu() throws IOException {
 
         Container cPane;
 
@@ -40,16 +41,14 @@ public class BlackjackStartMenu extends JFrame implements ActionListener {
         // shut down the program when the window is closed
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-        cPane = getContentPane();
-        cPane.setLayout(null);
+       // cPane = getContentPane();
+        //cPane.setLayout(null);
 
-        blackjack = new ImageIcon(getClass().getResource("\\Resources\\Blackjack.jpg"));
+        BufferedImage image = ImageIO.read(new File("Resources\\Blackjack.jpg"));
 
-
-        imageLabel = new JLabel(blackjack);
-        // imageLabel.setVisible(true);
-        cPane.add(imageLabel);
-        validate();
+        JLabel mainLabel = new JLabel(new ImageIcon(image));
+        mainLabel.setLayout(new FlowLayout());
+        cPane.setContentPane(mainLabel);
 
 
 
@@ -98,7 +97,7 @@ public class BlackjackStartMenu extends JFrame implements ActionListener {
 
             Player player = new Player(username,balance);
 
-            //frame.setVisible(false);
+            frame.setVisible(false);
             GameGUI.main(null);
 
 

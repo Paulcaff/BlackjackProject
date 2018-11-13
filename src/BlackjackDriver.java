@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class BlackjackDriver {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
 
         ArrayList<Card> playerCards = new ArrayList<Card>();
