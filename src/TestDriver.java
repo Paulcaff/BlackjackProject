@@ -10,13 +10,15 @@ public class TestDriver {
         ArrayList<Card> playerCards = new ArrayList<Card>();
         ArrayList<Card> dealerCards = new ArrayList<Card>();
 
-        JMenuFrame frame = new JMenuFrame();
+        BlackjackStartMenu frame = new BlackjackStartMenu();
         frame.setVisible(true);
 
         Deck d = new Deck();
         Deck d2 = new Deck();
         Card c = new Card();
+
         GameGUI game = new GameGUI();
+        game.setVisible(true);
 
 
         //  JOptionPane.showMessageDialog(null, d.toString());

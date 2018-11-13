@@ -30,7 +30,7 @@ public class GameGUI extends JFrame implements ActionListener {
         setTitle ("Blackjack");
         setSize (600, 600);
         setDefaultCloseOperation( EXIT_ON_CLOSE );
-        setVisible(true);
+        //setVisible(true);
         setResizable(false);
 
         // get the content pane and set properties
