@@ -7,23 +7,23 @@ public class TestDriver {
     public static void main(String[] args) {
 
 
-
         ArrayList<Card> playerCards = new ArrayList<Card>();
         ArrayList<Card> dealerCards = new ArrayList<Card>();
 
         JMenuFrame frame = new JMenuFrame();
-        Player player = new Player();
+        frame.setVisible(true);
+
         Deck d = new Deck();
         Deck d2 = new Deck();
         Card c = new Card();
         GameGUI game = new GameGUI();
 
 
-        JOptionPane.showMessageDialog(null, d.toString());
+        //  JOptionPane.showMessageDialog(null, d.toString());
 
-        Deck.toShuffle();
-        JOptionPane.showMessageDialog(null, d2.toString());
-        JOptionPane.showMessageDialog(null, c.toString());
+        //  Deck.toShuffle();
+        //JOptionPane.showMessageDialog(null, d2.toString());
+        //JOptionPane.showMessageDialog(null, c.toString());
 
         // dealerCards.add("1");
         //dealerCards.add("2");
@@ -52,15 +52,15 @@ public class TestDriver {
             playerTotal += d2.returnCard().getNumber() + d2.returnCard().getNumber();
             dealerTotal += d2.returnCard().getNumber() + d2.returnCard().getNumber();
 
-            JOptionPane.showMessageDialog(null, "array list : " + playerCards);
-            JOptionPane.showMessageDialog(null, "array list : " + dealerCards);
-            JOptionPane.showMessageDialog(null, "Hand Total : " + playerTotal);
-            JOptionPane.showMessageDialog(null, "Hand Total : " + dealerTotal);
+            // JOptionPane.showMessageDialog(null, "array list : " + playerCards);
+            // JOptionPane.showMessageDialog(null, "array list : " + dealerCards);
+            // JOptionPane.showMessageDialog(null, "Hand Total : " + playerTotal);
+            // JOptionPane.showMessageDialog(null, "Hand Total : " + dealerTotal);
         }
 
-        String input = JOptionPane.showInputDialog(null, "y for card n to stick");
+         String input = JOptionPane.showInputDialog(null, "y for card n to stick");
 
-        int counter = 4;
+           int counter = 4;
 
         while (input.equals("y")) {
 
@@ -79,26 +79,19 @@ public class TestDriver {
 
         }
 
-        public static void saveProfile(Player player) throws FileNotFoundException {
-            File file = new File("Player.dat");
+         public static void saveProfile(Player player) throws FileNotFoundException {
+           /* File file = new File("Player.dat");
             FileOutputStream fos = new FileOutputStream(file);
             ObjectOutputStream oos = new ObjectOutputStream(fos);
 
             oos.writeObject(player);
-            oos.close();
+            oos.close();*/
         }
 
-        public static void loadProfile(){
-            File file = new File("Player.dat");
-            FileInputStream fis = new FileInputStream(file);
-            ObjectInputStream ois = new ObjectInputStream(fis);
-
-            Player player = ois.readObject();
-            ois.close();
 
 
-
-
-        }
     }
+
+
+
 

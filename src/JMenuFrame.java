@@ -1,9 +1,11 @@
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 
 /**
  *   JMenuFrame: includes one JMenuBar,2 JMenus and 8 JMenuItem objects. 
@@ -16,6 +18,7 @@ public class JMenuFrame extends JFrame implements ActionListener {
     private JLabel imageLabel;
     private ImageIcon blackjack;
     private BufferedImage blackjack2;
+
 
 
     public static void main(String[] args) {
@@ -40,22 +43,9 @@ public class JMenuFrame extends JFrame implements ActionListener {
 
         blackjack = new ImageIcon(getClass().getResource("Blackjack.jpg"));
         imageLabel = new JLabel(blackjack);
+        imageLabel.setVisible(true);
         cPane.add(imageLabel);
         validate();
-
-
-      /*  try {
-            BufferedImage temp = ImageIO.read(getClass().getResource("Blackjack.jpg"));
-            blackjack2 = temp.getSubimage(62,0,62,48);
-            System.out.println("image read");
-
-        }catch(IOException ex){
-            System.out.println("error in read, existing.");
-            System.exit(0);
-        }
-*/
-
-
 
 
         //invoke a user-written method create two menus and their menu items
@@ -99,6 +89,8 @@ public class JMenuFrame extends JFrame implements ActionListener {
          String  username = JOptionPane.showInputDialog("Please enter your username here :");
          Double balance = Double.parseDouble(JOptionPane.showInputDialog(null,"Please enter the amount you want to deposit :"));
 
+         Player player = new Player(username,balance);
+
         });
 
 
@@ -109,9 +101,20 @@ public class JMenuFrame extends JFrame implements ActionListener {
         item.addActionListener((ActionEvent e)->{
 
             String  username = JOptionPane.showInputDialog("Please enter your username here :");
+            loadProfile();
 
         });
 
 
     }
+
+    public static void loadProfile(){
+        /*File file = new File("Player.dat");
+        FileInputStream fis = new FileInputStream(file);
+        ObjectInputStream ois = new ObjectInputStream(fis);
+
+        Player player = ois.readObject();
+        ois.close();
+
+    */}
 }
