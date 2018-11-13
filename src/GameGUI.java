@@ -90,7 +90,7 @@ public class GameGUI extends JFrame implements ActionListener {
 
 
         
-        playerCards.setLocation(playersCardLocation);
+
         contentPane.add(playerCards);
 
 
