@@ -31,11 +31,15 @@ public class BlackjackStartMenu extends JFrame implements ActionListener {
 
     public BlackjackStartMenu() throws IOException {
 
+
         Container cPane = getContentPane();
+        cPane.setSize(600,600);
+        cPane.setBackground(Color.green);
+
 
         //set the frame properties
         setTitle("Blackjack Menu");
-        setSize(600, 600);
+        setSize(500, 500);
         setResizable(false);
         setLocation(250, 200);
         // shut down the program when the window is closed
@@ -44,10 +48,12 @@ public class BlackjackStartMenu extends JFrame implements ActionListener {
        // cPane = getContentPane();
         //cPane.setLayout(null);
 
-        BufferedImage image = ImageIO.read(new File("Resources\\Blackjack.jfif"));
 
+        BufferedImage image = ImageIO.read(new File("Resources\\Blackjack.jpg"));
         JLabel mainLabel = new JLabel(new ImageIcon(image));
-        mainLabel.setLayout(new FlowLayout());
+        mainLabel.setLayout(null);
+        mainLabel.setSize(1000,1000);
+        mainLabel.setBackground(Color.red);
         cPane.add(mainLabel);
 
 
@@ -98,7 +104,7 @@ public class BlackjackStartMenu extends JFrame implements ActionListener {
             Player player = new Player(username,balance);
 
             frame.setVisible(false);
-            GameGUI.main(null);
+           // GameGUI.main(null);
 
 
         });

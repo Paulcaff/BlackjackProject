@@ -1,6 +1,10 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class GameGUI extends JFrame implements ActionListener {
 
@@ -20,23 +24,29 @@ public class GameGUI extends JFrame implements ActionListener {
     public static Deck d2;
 
 
-    public static void main (String [] args) {
+    public static void main (String [] args) throws IOException {
         d2 = new Deck();
         GameGUI game = new GameGUI();
 
     }
 
-    public GameGUI () {
+    public GameGUI () throws IOException {
         setTitle ("Blackjack");
         setSize (600, 600);
+        setLocation(250, 200);
         setDefaultCloseOperation( EXIT_ON_CLOSE );
-        //setVisible(true);
         setResizable(false);
 
         // get the content pane and set properties
         Container contentPane = getContentPane();
         contentPane.setBackground (new Color(50,100,20));
         contentPane.setLayout(null); // so that we can use absolute positioning
+
+        BufferedImage image = ImageIO.read(new File("Resources\\back.bmp"));
+        JLabel mainLabel = new JLabel(new ImageIcon(image));
+        mainLabel.setLayout(null);
+        mainLabel.setBounds(400,200,250,200);
+        contentPane.add(mainLabel);
 
         dealer = new JLabel("Dealer" );
         dealer.setSize(250, 50); // optional
@@ -96,7 +106,7 @@ public class GameGUI extends JFrame implements ActionListener {
         
 
         contentPane.add(playerCards);
-
+        setVisible(true);
 
 
 
