@@ -24,6 +24,7 @@ public class GameGUI extends JFrame implements ActionListener {
     static int dealerValue = 0;
     static int playerCardCounter = 0;
     static int dealerCardCounter = 0;
+    static boolean valid;
 
 
 
@@ -55,17 +56,19 @@ public class GameGUI extends JFrame implements ActionListener {
 
         String username = JOptionPane.showInputDialog("Please enter your username here :");
         double bet= Double.parseDouble(JOptionPane.showInputDialog(null,"Pleas enter the amount you want to bet"));
-        double balance=0;
+        double balance = 0;
 
         String balanceAsString =JOptionPane.showInputDialog(null,"Please enter the amount you want to deposit :");
 
-       /* if(balanceAsString.matches("[0-9]*")) {
-            balance = Double.parseDouble(balanceAsString);
-        }
-        else{
-            String balanceAsString =JOptionPane.showInputDialog(null,"Please enter the amount you want to deposit :");
 
-        }*/
+        while(!valid) {
+            if (balanceAsString.matches("[0-9]*")) {
+                balance = Double.parseDouble(balanceAsString);
+            } else {
+                 balanceAsString = JOptionPane.showInputDialog(null, "Please enter the amount you want to deposit :");
+
+            }
+        }
 
 
         player = new Player(username,balance,bet);
@@ -91,7 +94,7 @@ public class GameGUI extends JFrame implements ActionListener {
         BufferedImage image = ImageIO.read(new File("Resources\\back.bmp"));
         JLabel mainLabel = new JLabel(new ImageIcon(image));
         mainLabel.setLayout(null);
-        mainLabel.setBounds(400,200,250,200);
+        mainLabel.setBounds(125,100,100,100);
         contentPane.add(mainLabel);
 //here
 
@@ -137,8 +140,11 @@ public class GameGUI extends JFrame implements ActionListener {
         contentPane.add(stick);
         stick.addActionListener((ActionEvent e)->{
 
+            dealerCards.add(deck.returnCard());
 
 
+            contentPane.add(displayDealerCardLabel());
+            repaint();
 
 
             JOptionPane.showMessageDialog(null,dealerCards.toString());
@@ -223,7 +229,7 @@ public class GameGUI extends JFrame implements ActionListener {
         //ImageIO.read(new File("Resources\\h2.bmp"));
         JLabel jLabel = new JLabel(new ImageIcon(image));
         jLabel.setLayout(null);
-        jLabel.setBounds(xpoint[dealerCardCounter],200,100,100);
+        jLabel.setBounds(xpoint[dealerCardCounter],100,100,100);
         dealerCardCounter++;
 
 
