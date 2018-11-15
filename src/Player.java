@@ -1,16 +1,28 @@
 public class Player {
     private String username;
     private double balance;
+    private double bet;
+
 
 
     public Player(){
         this.username = "Not Set";
         this.balance = 0;
+        this.bet = 0;
     }
 
-    public Player(String username,double balance ){
+    public Player(String username,double balance,double bet ){
         setBalance(balance);
         setUsername(username);
+        setBet(bet);
+    }
+
+    public double getBet() {
+        return bet;
+    }
+
+    public void setBet(double bet) {
+        this.bet = bet;
     }
 
     public void setBalance(double balance) {

@@ -5,6 +5,7 @@ import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class GameGUI extends JFrame implements ActionListener {
 
@@ -16,24 +17,66 @@ public class GameGUI extends JFrame implements ActionListener {
     JLabel gameBalance;
     JLabel stake;
     private static Player player;
+    private static ArrayList<Card> playerCards;
+    private static ArrayList<Card> dealerCards;
+    static Container contentPane;
+    static int playerValue = 0;
+    static int dealerValue = 0;
 
 
 
 
 
-    double bet;
 
-    public static Deck d2;
+
+    public static Deck deck;
 
 
     public static void main (String [] args) throws IOException {
-        d2 = new Deck();
+        deck = new Deck();
+
+
+       // deck.toShuffle();
+
+        playerCards = new ArrayList<Card>();
+        ArrayList<Card> dealerCards = new ArrayList<Card>();
+
+        playerCards.add(deck.returnCard());
+        playerValue += deck.returnCard().getNumber();
+
+        playerCards.add(deck.returnCard());
+        playerValue += deck.returnCard().getNumber();
+
+
+
+        /*BufferedImage image = ImageIO.read(new File("Resources\\h2.bmp"));
+        JLabel mainLabel = new JLabel(new ImageIcon(image));
+        mainLabel.setLayout(null);
+        mainLabel.setBounds(200,400,250,200);
+        contentPane.add(mainLabel);
+
+        BufferedImage image2 = ImageIO.read(new File("Resources\\h3.bmp"));
+        JLabel mainLabel2 = new JLabel(new ImageIcon(image2));
+        mainLabel2.setLayout(null);
+        mainLabel2.setBounds(300,400,250,200);
+        contentPane.add(mainLabel2);*/
 
         String username = JOptionPane.showInputDialog("Please enter your username here :");
-        double balance = Double.parseDouble(JOptionPane.showInputDialog(null,"Please enter the amount you want to deposit :"));
-        double bet = Double.parseDouble(JOptionPane.showInputDialog(null,"Please enter the amount you want to bet :"));
+        double bet= Double.parseDouble(JOptionPane.showInputDialog(null,"Pleas enter the amount you want to bet"));
+        double balance=0;
 
-        player = new Player(username,balance);
+        String balanceAsString =JOptionPane.showInputDialog(null,"Please enter the amount you want to deposit :");
+
+       /* if(balanceAsString.matches("[0-9]*")) {
+            balance = Double.parseDouble(balanceAsString);
+        }
+        else{
+            String balanceAsString =JOptionPane.showInputDialog(null,"Please enter the amount you want to deposit :");
+
+        }*/
+
+
+        player = new Player(username,balance,bet);
 
 
 
@@ -49,7 +92,7 @@ public class GameGUI extends JFrame implements ActionListener {
         setResizable(false);
 
         // get the content pane and set properties
-        Container contentPane = getContentPane();
+        contentPane = getContentPane();
         contentPane.setBackground (new Color(50,100,20));
         contentPane.setLayout(null); // so that we can use absolute positioning
 
@@ -58,6 +101,7 @@ public class GameGUI extends JFrame implements ActionListener {
         mainLabel.setLayout(null);
         mainLabel.setBounds(400,200,250,200);
         contentPane.add(mainLabel);
+
 
         dealer = new JLabel("Dealer" );
         dealer.setSize(250, 50); // optional
@@ -72,7 +116,7 @@ public class GameGUI extends JFrame implements ActionListener {
         gameBalance.setLocation(475,25);
         contentPane.add(gameBalance);
 
-        stake = new JLabel("Stake : "+ bet );
+        stake = new JLabel("Stake : "+ player.getBet());
         stake.setSize(250, 50); // optional
         stake.setForeground(Color.white);
         stake.setLocation(475,50);
@@ -90,7 +134,17 @@ public class GameGUI extends JFrame implements ActionListener {
         stick.setBounds(50,500,120,50);
         contentPane.add(stick);
         stick.addActionListener((ActionEvent e)->{
-            JOptionPane.showMessageDialog(null,"NO MORE CARDS ");
+
+
+            dealerCards.add(deck.returnCard());
+            dealerValue += deck.returnCard().getNumber();
+
+
+
+            JOptionPane.showMessageDialog(null,dealerCards.toString());
+
+
+
 
         });
 
@@ -99,10 +153,11 @@ public class GameGUI extends JFrame implements ActionListener {
         newCard.setBounds(250,500,120,50);
         contentPane.add(newCard);
         newCard.addActionListener((ActionEvent e)->{
-           // playerCards.append(d2.returnCard().cardString());
-           // JOptionPane.showMessageDialog(null,playerCards);
-           // repaint();
 
+            playerCards.add(deck.returnCard());
+            playerValue += deck.returnCard().getNumber();
+
+            JOptionPane.showMessageDialog(null,playerCards.toString());
 
         });
 
