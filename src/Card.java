@@ -1,19 +1,26 @@
+import javax.imageio.ImageIO;
 import javax.swing.*;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class Card {
 
     private String suit;
     private String value;
+    private BufferedImage image;
     private int number = 0;
 
-    public Card(){
+    public Card() throws IOException {
         this ("0", "0");
     }
 
-    public Card(String suit, String value){
+    public Card(String suit, String value) throws IOException {
         this.setNumberFromValue(value);
         setSuit(suit);
         setValue(value);
+        this.setImage(image);
     }
 
 
@@ -99,6 +106,16 @@ public class Card {
                 break;
         }
 
+    }
+
+    public BufferedImage getImage() {
+        return image;
+    }
+
+    public void setImage(BufferedImage image) throws IOException {
+        String str = "Resources\\"+getSuit()+""+getValue()+".bmp";
+        System.out.println((str));
+        this.image = ImageIO.read(new File(str));
     }
 
     public String toString(){

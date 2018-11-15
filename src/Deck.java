@@ -1,4 +1,5 @@
 import javax.swing.*;
+import java.io.IOException;
 
 public class Deck {
 
@@ -7,7 +8,7 @@ public class Deck {
 
 
     //constructor
-    public Deck() {
+    public Deck() throws IOException {
         deck = new Card[52];
         int counter = 0;
         this.dealCount = 0;

@@ -22,6 +22,8 @@ public class GameGUI extends JFrame implements ActionListener {
     static Container contentPane;
     static int playerValue = 0;
     static int dealerValue = 0;
+    static int playerCardCounter = 0;
+    static int dealerCardCounter = 0;
 
 
 
@@ -36,30 +38,20 @@ public class GameGUI extends JFrame implements ActionListener {
         deck = new Deck();
 
 
-       // deck.toShuffle();
+        deck.toShuffle();
 
         playerCards = new ArrayList<Card>();
-        ArrayList<Card> dealerCards = new ArrayList<Card>();
+        dealerCards = new ArrayList<Card>();
 
         playerCards.add(deck.returnCard());
-        playerValue += deck.returnCard().getNumber();
+       // playerValue += deck.returnCard().getNumber();
 
         playerCards.add(deck.returnCard());
-        playerValue += deck.returnCard().getNumber();
+       //playerValue += deck.returnCard().getNumber();
+
+        dealerCards.add(deck.returnCard());
 
 
-
-        /*BufferedImage image = ImageIO.read(new File("Resources\\h2.bmp"));
-        JLabel mainLabel = new JLabel(new ImageIcon(image));
-        mainLabel.setLayout(null);
-        mainLabel.setBounds(200,400,250,200);
-        contentPane.add(mainLabel);
-
-        BufferedImage image2 = ImageIO.read(new File("Resources\\h3.bmp"));
-        JLabel mainLabel2 = new JLabel(new ImageIcon(image2));
-        mainLabel2.setLayout(null);
-        mainLabel2.setBounds(300,400,250,200);
-        contentPane.add(mainLabel2);*/
 
         String username = JOptionPane.showInputDialog("Please enter your username here :");
         double bet= Double.parseDouble(JOptionPane.showInputDialog(null,"Pleas enter the amount you want to bet"));
@@ -101,8 +93,18 @@ public class GameGUI extends JFrame implements ActionListener {
         mainLabel.setLayout(null);
         mainLabel.setBounds(400,200,250,200);
         contentPane.add(mainLabel);
+//here
 
+            mainLabel = displayPlayerCardLabel();
+            contentPane.add(mainLabel);
 
+            mainLabel = displayPlayerCardLabel();
+            contentPane.add(mainLabel);
+
+            mainLabel = displayDealerCardLabel();
+            contentPane.add(mainLabel);
+
+//here
         dealer = new JLabel("Dealer" );
         dealer.setSize(250, 50); // optional
         dealer.setForeground(Color.white);
@@ -136,8 +138,6 @@ public class GameGUI extends JFrame implements ActionListener {
         stick.addActionListener((ActionEvent e)->{
 
 
-            dealerCards.add(deck.returnCard());
-            dealerValue += deck.returnCard().getNumber();
 
 
 
@@ -155,7 +155,13 @@ public class GameGUI extends JFrame implements ActionListener {
         newCard.addActionListener((ActionEvent e)->{
 
             playerCards.add(deck.returnCard());
-            playerValue += deck.returnCard().getNumber();
+
+
+            contentPane.add(displayPlayerCardLabel());
+            repaint();
+
+
+
 
             JOptionPane.showMessageDialog(null,playerCards.toString());
 
@@ -187,6 +193,42 @@ public class GameGUI extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
+
+    }
+
+   public JLabel displayPlayerCardLabel(){
+
+        int xpoint[] =new int[]{50,125,200,275,350,425};
+
+
+        BufferedImage image = playerCards.get(dealerCardCounter).getImage();
+        //ImageIO.read(new File("Resources\\h2.bmp"));
+        JLabel jLabel = new JLabel(new ImageIcon(image));
+        jLabel.setLayout(null);
+        jLabel.setBounds(xpoint[playerCardCounter],300,100,100);
+        playerCardCounter++;
+
+
+        return jLabel;
+
+    }
+
+
+    public JLabel displayDealerCardLabel(){
+
+        int xpoint[] =new int[]{50,125,200,275,350,425};
+
+
+        BufferedImage image = dealerCards.get(dealerCardCounter).getImage();
+        //ImageIO.read(new File("Resources\\h2.bmp"));
+        JLabel jLabel = new JLabel(new ImageIcon(image));
+        jLabel.setLayout(null);
+        jLabel.setBounds(xpoint[dealerCardCounter],200,100,100);
+        dealerCardCounter++;
+
+
+
+        return jLabel;
 
     }
 
