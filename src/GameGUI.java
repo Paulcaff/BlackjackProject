@@ -15,17 +15,28 @@ public class GameGUI extends JFrame implements ActionListener {
     JLabel username;
     JLabel gameBalance;
     JLabel stake;
-    private static JTextArea playerCards = new JTextArea();
+    private static Player player;
 
 
-    Player player = new Player();
-    int bet = 10;
+
+
+
+    double bet;
 
     public static Deck d2;
 
 
     public static void main (String [] args) throws IOException {
         d2 = new Deck();
+
+        String username = JOptionPane.showInputDialog("Please enter your username here :");
+        double balance = Double.parseDouble(JOptionPane.showInputDialog(null,"Please enter the amount you want to deposit :"));
+        double bet = Double.parseDouble(JOptionPane.showInputDialog(null,"Please enter the amount you want to bet :"));
+
+        player = new Player(username,balance);
+
+
+
         GameGUI game = new GameGUI();
 
     }
@@ -53,6 +64,7 @@ public class GameGUI extends JFrame implements ActionListener {
         dealer.setForeground(Color.white);
         dealer.setLocation(50,50);
         contentPane.add(dealer);
+
 
         gameBalance = new JLabel("Balance : " + player.getBalance() );
         gameBalance.setSize(250, 50); // optional
@@ -87,7 +99,7 @@ public class GameGUI extends JFrame implements ActionListener {
         newCard.setBounds(250,500,120,50);
         contentPane.add(newCard);
         newCard.addActionListener((ActionEvent e)->{
-            playerCards.append(d2.returnCard().cardString());
+           // playerCards.append(d2.returnCard().cardString());
            // JOptionPane.showMessageDialog(null,playerCards);
            // repaint();
 
@@ -105,7 +117,7 @@ public class GameGUI extends JFrame implements ActionListener {
 
         
 
-        contentPane.add(playerCards);
+       // contentPane.add(playerCards);
         setVisible(true);
 
 

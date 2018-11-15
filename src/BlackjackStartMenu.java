@@ -19,6 +19,8 @@ public class BlackjackStartMenu extends JFrame implements ActionListener {
     private JMenu rules;
     private JPanel imagePanel;
     private static BlackjackStartMenu frame;
+    String username;
+    double balance;
 
 
 
@@ -98,13 +100,14 @@ public class BlackjackStartMenu extends JFrame implements ActionListener {
         game.add(item);
         item.addActionListener((ActionEvent e)->{
 
-            String  username = JOptionPane.showInputDialog("Please enter your username here :");
-            Double balance = Double.parseDouble(JOptionPane.showInputDialog(null,"Please enter the amount you want to deposit :"));
-
-            Player player = new Player(username,balance);
 
             frame.setVisible(false);
-           // GameGUI.main(null);
+
+            try {
+                GameGUI.main(null);
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
 
 
         });
@@ -116,7 +119,7 @@ public class BlackjackStartMenu extends JFrame implements ActionListener {
         game.add(item);
         item.addActionListener((ActionEvent e)->{
 
-            String  username = JOptionPane.showInputDialog("Please enter your username here :");
+            username = JOptionPane.showInputDialog("Please enter your username here :");
             loadProfile();
 
         });
@@ -152,6 +155,7 @@ public class BlackjackStartMenu extends JFrame implements ActionListener {
         ois.close();
 
     */}
+
 }
 
 
