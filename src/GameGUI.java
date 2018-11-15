@@ -24,7 +24,7 @@ public class GameGUI extends JFrame implements ActionListener {
     static int dealerValue = 0;
     static int playerCardCounter = 0;
     static int dealerCardCounter = 0;
-    static boolean valid;
+    static boolean valid =false;
 
 
 
@@ -39,7 +39,7 @@ public class GameGUI extends JFrame implements ActionListener {
         deck = new Deck();
 
 
-        deck.toShuffle();
+        Deck.toShuffle();
 
         playerCards = new ArrayList<Card>();
         dealerCards = new ArrayList<Card>();
@@ -55,20 +55,21 @@ public class GameGUI extends JFrame implements ActionListener {
 
 
         String username = JOptionPane.showInputDialog("Please enter your username here :");
-        double bet= Double.parseDouble(JOptionPane.showInputDialog(null,"Pleas enter the amount you want to bet"));
+
         double balance = 0;
 
         String balanceAsString =JOptionPane.showInputDialog(null,"Please enter the amount you want to deposit :");
 
 
         while(!valid) {
-            if (balanceAsString.matches("[0-9]*")) {
+            if (balanceAsString.matches("[0-9]+(\\.){0,1}[0-9]*")) {
                 balance = Double.parseDouble(balanceAsString);
             } else {
                  balanceAsString = JOptionPane.showInputDialog(null, "Please enter the amount you want to deposit :");
 
             }
         }
+        double bet= Double.parseDouble(JOptionPane.showInputDialog(null,"Please enter the amount you want to bet"));
 
 
         player = new Player(username,balance,bet);

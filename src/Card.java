@@ -114,7 +114,7 @@ public class Card {
 
     public void setImage(BufferedImage image) throws IOException {
         String str = "Resources\\"+getSuit()+""+getValue()+".bmp";
-        System.out.println((str));
+
         this.image = ImageIO.read(new File(str));
     }
 
