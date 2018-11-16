@@ -54,7 +54,7 @@ public class GameGUI extends JFrame implements ActionListener {
 
 
 
-        String username = JOptionPane.showInputDialog("Please enter your username here :");
+        /*String username = JOptionPane.showInputDialog("Please enter your username here :");
 
         double balance = 0;
 
@@ -73,7 +73,11 @@ public class GameGUI extends JFrame implements ActionListener {
 
 
         player = new Player(username,balance,bet);
+*/
 
+        Player player = new Player("Paul",1000,10);
+        System.out.println(player.getUsername() +" "+ player.getBalance()+" "+ player.getBet());
+        System.out.println(player.getBalance());
 
 
         GameGUI game = new GameGUI();
@@ -87,16 +91,21 @@ public class GameGUI extends JFrame implements ActionListener {
         setDefaultCloseOperation( EXIT_ON_CLOSE );
         setResizable(false);
 
+        Player player = new Player("Paul",1000,10);
+
         // get the content pane and set properties
         contentPane = getContentPane();
         contentPane.setBackground (new Color(50,100,20));
         contentPane.setLayout(null); // so that we can use absolute positioning
 
         BufferedImage image = ImageIO.read(new File("Resources\\back.bmp"));
+        JLabel mainLabelback = new JLabel(new ImageIcon(image));
+        mainLabelback.setLayout(null);
+        mainLabelback.setBounds(125,100,100,100);
+        contentPane.add(mainLabelback);
+
+
         JLabel mainLabel = new JLabel(new ImageIcon(image));
-        mainLabel.setLayout(null);
-        mainLabel.setBounds(125,100,100,100);
-        contentPane.add(mainLabel);
 //here
 
             mainLabel = displayPlayerCardLabel();
@@ -145,6 +154,7 @@ public class GameGUI extends JFrame implements ActionListener {
 
 
             contentPane.add(displayDealerCardLabel());
+            mainLabelback.setVisible(false);
             repaint();
 
 
@@ -166,8 +176,6 @@ public class GameGUI extends JFrame implements ActionListener {
 
             contentPane.add(displayPlayerCardLabel());
             repaint();
-
-
 
 
             JOptionPane.showMessageDialog(null,playerCards.toString());
@@ -208,7 +216,7 @@ public class GameGUI extends JFrame implements ActionListener {
         int xpoint[] =new int[]{50,125,200,275,350,425};
 
 
-        BufferedImage image = playerCards.get(dealerCardCounter).getImage();
+        BufferedImage image = playerCards.get(playerCardCounter).getImage();
         //ImageIO.read(new File("Resources\\h2.bmp"));
         JLabel jLabel = new JLabel(new ImageIcon(image));
         jLabel.setLayout(null);
