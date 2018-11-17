@@ -4,23 +4,21 @@ public class Player {
     private double bet;
 
 
-
+//No argument Constructo
     public Player(){
         this.username = "Not Set";
         this.balance = 0;
         this.bet = 0;
     }
-
+//3 Argument constructor
     public Player(String username,double balance,double bet ){
         setBalance(balance);
         setUsername(username);
         setBet(bet);
     }
 
-    public double getBet() {
-        return bet;
-    }
 
+// mutator methods
     public void setBet(double bet) {
         this.bet = bet;
     }
@@ -33,6 +31,7 @@ public class Player {
         this.username = username;
     }
 
+//accessor methods
     public double getBalance() {
         return balance;
     }
@@ -41,7 +40,11 @@ public class Player {
         return username;
     }
 
+    public double getBet() {
+        return bet;
+    }
 
+//toString Method
     public String toString() {
         return "Username : "+username+ "\nBalance : "+balance;
     }

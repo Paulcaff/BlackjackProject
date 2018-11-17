@@ -12,10 +12,12 @@ public class Card {
     private BufferedImage image;
     private int number = 0;
 
+
+//No argument Constructor
     public Card() throws IOException {
         this ("0", "0");
     }
-
+//2 argument Constructor
     public Card(String suit, String value) throws IOException {
         this.setNumberFromValue(value);
         setSuit(suit);
@@ -24,7 +26,7 @@ public class Card {
     }
 
 
-
+//mutator methods
     public void setSuit(String suit) {
         this.suit = suit;
     }
@@ -33,22 +35,12 @@ public class Card {
         this.value = value;
     }
 
-    public String getValue() {
-        return value;
-    }
-
-    public String getSuit() {
-        return suit;
-    }
-
-    public int getNumber() {
-        return number;
-    }
 
     public void setNumber(int number) {
         this.number = number;
     }
 
+//sets the value of the card that is used in the gameplay where the picture card values are set to 10 etc.
     public void setNumberFromValue(String value) {
 
         int number;
@@ -108,10 +100,23 @@ public class Card {
 
     }
 
+//accessor Methods
+    public String getValue() {
+        return value;
+    }
+
+    public String getSuit() {
+        return suit;
+    }
+
+    public int getNumber() {
+        return number;
+    }
+
     public BufferedImage getImage() {
         return image;
     }
-
+//sets the path back to the resource file to the image associated with it
     public void setImage(BufferedImage image) throws IOException {
         String str = "Resources\\"+getSuit()+""+getValue()+".bmp";
 
