@@ -25,20 +25,20 @@ public class GameGUI extends JFrame implements ActionListener {
     static int playerCardCounter = 0;
     static int dealerCardCounter = 0;
     static boolean valid =false;
-
-
-
-
-
-
-
-    public static Deck deck;
+    static Deck deck;
+    int stickTotal;
 
 
     public static void main (String [] args) throws IOException {
+        String username;
+        String balanceAsString;
+        double balance = 0;
+        String betAsString;
+        double bet = 0;
+        boolean valid = false;
+
+
         deck = new Deck();
-
-
         Deck.toShuffle();
 
         playerCards = new ArrayList<Card>();
@@ -53,32 +53,46 @@ public class GameGUI extends JFrame implements ActionListener {
         dealerCards.add(deck.returnCard());
 
 
-
-        /*String username = JOptionPane.showInputDialog("Please enter your username here :");
-
-        double balance = 0;
-
-        String balanceAsString =JOptionPane.showInputDialog(null,"Please enter the amount you want to deposit :");
-
+        username =JOptionPane.showInputDialog(null,"Please enter your username :");
 
         while(!valid) {
-            if (balanceAsString.matches("[0-9]+(\\.){0,1}[0-9]*")) {
+
+            balanceAsString =JOptionPane.showInputDialog(null,"Please enter the amount you want to deposit :");
+            betAsString =JOptionPane.showInputDialog(null,"Please enter the amount you want to bet:");
+
+
+            try {
                 balance = Double.parseDouble(balanceAsString);
-            } else {
-                 balanceAsString = JOptionPane.showInputDialog(null, "Please enter the amount you want to deposit :");
+                bet = Double.parseDouble(betAsString);
+
+
+                if (bet > balance) {
+                    throw new betInputException();
+                }
+
+
+
+
+              valid = true;
+            }
+            catch(NumberFormatException e){
+
+                JOptionPane.showMessageDialog(null, "Please enter a valid number for your balance and how much you want to bet");
 
             }
-        }
-        double bet= Double.parseDouble(JOptionPane.showInputDialog(null,"Please enter the amount you want to bet"));
+
+            catch(betInputException e){
+
+                JOptionPane.showMessageDialog(null, "You Cannot bet More than your balance!");
+
+            }
+
+
+            }
+
 
 
         player = new Player(username,balance,bet);
-*/
-
-        Player player = new Player("Paul",1000,10);
-        System.out.println(player.getUsername() +" "+ player.getBalance()+" "+ player.getBet());
-        System.out.println(player.getBalance());
-
 
         GameGUI game = new GameGUI();
 
@@ -91,7 +105,7 @@ public class GameGUI extends JFrame implements ActionListener {
         setDefaultCloseOperation( EXIT_ON_CLOSE );
         setResizable(false);
 
-        Player player = new Player("Paul",1000,10);
+        Player player = new Player("hhhh",1000,100);
 
         // get the content pane and set properties
         contentPane = getContentPane();
@@ -110,6 +124,7 @@ public class GameGUI extends JFrame implements ActionListener {
 
             mainLabel = displayPlayerCardLabel();
             contentPane.add(mainLabel);
+
 
             mainLabel = displayPlayerCardLabel();
             contentPane.add(mainLabel);
@@ -150,18 +165,14 @@ public class GameGUI extends JFrame implements ActionListener {
         contentPane.add(stick);
         stick.addActionListener((ActionEvent e)->{
 
+            newCard.setVisible(false);
+
             dealerCards.add(deck.returnCard());
 
 
             contentPane.add(displayDealerCardLabel());
             mainLabelback.setVisible(false);
             repaint();
-
-
-            JOptionPane.showMessageDialog(null,dealerCards.toString());
-
-
-
 
         });
 
@@ -176,9 +187,6 @@ public class GameGUI extends JFrame implements ActionListener {
 
             contentPane.add(displayPlayerCardLabel());
             repaint();
-
-
-            JOptionPane.showMessageDialog(null,playerCards.toString());
 
         });
 
@@ -221,7 +229,10 @@ public class GameGUI extends JFrame implements ActionListener {
         JLabel jLabel = new JLabel(new ImageIcon(image));
         jLabel.setLayout(null);
         jLabel.setBounds(xpoint[playerCardCounter],300,100,100);
-        playerCardCounter++;
+        stickTotal += playerCards.get(playerCardCounter).getNumber();
+
+        System.out.println(stickTotal);
+       playerCardCounter++;
 
 
         return jLabel;
