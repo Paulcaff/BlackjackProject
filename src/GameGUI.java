@@ -24,13 +24,13 @@ public class GameGUI extends JFrame implements ActionListener {
     static int dealerValue = 0;
     static int playerCardCounter = 0;
     static int dealerCardCounter = 0;
-    static boolean valid =false;
     static Deck deck;
     int stickTotal;
+    int dealerTotal;
 
 
-    public static void main (String [] args) throws IOException {
-        String username;
+
+    public static void main(String[] args) throws IOException {
         String balanceAsString;
         double balance = 0;
         String betAsString;
@@ -41,24 +41,12 @@ public class GameGUI extends JFrame implements ActionListener {
         deck = new Deck();
         Deck.toShuffle();
 
-        playerCards = new ArrayList<Card>();
-        dealerCards = new ArrayList<Card>();
+        String username = JOptionPane.showInputDialog(null, "Please enter your username :");
 
-        playerCards.add(deck.returnCard());
-       // playerValue += deck.returnCard().getNumber();
+        while (!valid) {
 
-        playerCards.add(deck.returnCard());
-       //playerValue += deck.returnCard().getNumber();
-
-        dealerCards.add(deck.returnCard());
-
-
-        username =JOptionPane.showInputDialog(null,"Please enter your username :");
-
-        while(!valid) {
-
-            balanceAsString =JOptionPane.showInputDialog(null,"Please enter the amount you want to deposit :");
-            betAsString =JOptionPane.showInputDialog(null,"Please enter the amount you want to bet:");
+            balanceAsString = JOptionPane.showInputDialog(null, "Please enter the amount you want to deposit :");
+            betAsString = JOptionPane.showInputDialog(null, "Please enter the amount you want to bet:");
 
 
             try {
@@ -71,145 +59,148 @@ public class GameGUI extends JFrame implements ActionListener {
                 }
 
 
-
-
-              valid = true;
-            }
-            catch(NumberFormatException e){
+                valid = true;
+            } catch (NumberFormatException e) {
 
                 JOptionPane.showMessageDialog(null, "Please enter a valid number for your balance and how much you want to bet");
 
-            }
-
-            catch(betInputException e){
+            } catch (betInputException e) {
 
                 JOptionPane.showMessageDialog(null, "You Cannot bet More than your balance!");
 
             }
 
 
-            }
+        }
+
+
+        player = new Player(username, balance, bet);
+        playHand();
 
 
 
-        player = new Player(username,balance,bet);
 
-        GameGUI game = new GameGUI();
 
     }
 
-    public GameGUI () throws IOException {
-        setTitle ("Blackjack");
-        setSize (600, 600);
+    public GameGUI() throws IOException {
+
+        setTitle("Blackjack");
+        setSize(600, 600);
         setLocation(250, 200);
-        setDefaultCloseOperation( EXIT_ON_CLOSE );
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
 
-        Player player = new Player("hhhh",1000,100);
 
         // get the content pane and set properties
         contentPane = getContentPane();
-        contentPane.setBackground (new Color(50,100,20));
+        contentPane.setBackground(new Color(50, 100, 20));
         contentPane.setLayout(null); // so that we can use absolute positioning
 
         BufferedImage image = ImageIO.read(new File("Resources\\back.bmp"));
         JLabel mainLabelback = new JLabel(new ImageIcon(image));
         mainLabelback.setLayout(null);
-        mainLabelback.setBounds(125,100,100,100);
+        mainLabelback.setBounds(125, 100, 100, 100);
         contentPane.add(mainLabelback);
 
 
         JLabel mainLabel = new JLabel(new ImageIcon(image));
-//here
 
-            mainLabel = displayPlayerCardLabel();
-            contentPane.add(mainLabel);
+        System.out.println("a");
+        mainLabel = displayPlayerCardLabel();
+        contentPane.add(mainLabel);
 
+        System.out.println("b");
+        mainLabel = displayPlayerCardLabel();
+        contentPane.add(mainLabel);
 
-            mainLabel = displayPlayerCardLabel();
-            contentPane.add(mainLabel);
+        System.out.println("c");
+        mainLabel = displayDealerCardLabel();
+        contentPane.add(mainLabel);
 
-            mainLabel = displayDealerCardLabel();
-            contentPane.add(mainLabel);
-
-//here
-        dealer = new JLabel("Dealer" );
+        System.out.println("d");
+        dealer = new JLabel("Dealer");
         dealer.setSize(250, 50); // optional
         dealer.setForeground(Color.white);
-        dealer.setLocation(50,50);
+        dealer.setLocation(50, 50);
         contentPane.add(dealer);
 
 
-        gameBalance = new JLabel("Balance : " + player.getBalance() );
+        gameBalance = new JLabel("Balance : " + player.getBalance());
         gameBalance.setSize(250, 50); // optional
         gameBalance.setForeground(Color.white);
-        gameBalance.setLocation(475,25);
+        gameBalance.setLocation(475, 25);
         contentPane.add(gameBalance);
 
-        stake = new JLabel("Stake : "+ player.getBet());
+        stake = new JLabel("Stake : " + player.getBet());
         stake.setSize(250, 50); // optional
         stake.setForeground(Color.white);
-        stake.setLocation(475,50);
+        stake.setLocation(475, 50);
         contentPane.add(stake);
 
-        username = new JLabel(player.getUsername() );
+        username = new JLabel(player.getUsername());
         username.setSize(250, 50); // optional
         username.setForeground(Color.white);
-        username.setLocation(100,400);
+        username.setLocation(100, 400);
         contentPane.add(username);
+
 
 
         // construct 3 buttons
         stick = new JButton("Stick");
-        stick.setBounds(50,500,120,50);
+        stick.setBounds(50, 500, 120, 50);
         contentPane.add(stick);
-        stick.addActionListener((ActionEvent e)->{
+        stick.addActionListener((ActionEvent e) -> {
 
             newCard.setVisible(false);
 
-            dealerCards.add(deck.returnCard());
+            Dealing(stickTotal);
 
 
-            contentPane.add(displayDealerCardLabel());
+            //contentPane.add(displayDealerCardLabel());
             mainLabelback.setVisible(false);
             repaint();
 
         });
 
 
-        newCard = new JButton("New Card");
-        newCard.setBounds(250,500,120,50);
+        newCard = new JButton("Hit");
+        newCard.setBounds(250, 500, 120, 50);
         contentPane.add(newCard);
-        newCard.addActionListener((ActionEvent e)->{
-
-            playerCards.add(deck.returnCard());
+        newCard.addActionListener((ActionEvent e) -> {
 
 
-            contentPane.add(displayPlayerCardLabel());
-            repaint();
 
+
+               playerCards.add(deck.returnCard());
+
+
+               contentPane.add(displayPlayerCardLabel());
+               repaint();
+
+            if(stickTotal > 21) {
+                JOptionPane.showMessageDialog(null, "Unlucky You Lost");
+                stick.setVisible(false);
+                newCard.setVisible(false);
+                try {
+                    playHand();
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+            }
         });
 
 
         close = new JButton("Close Game");
-        close.setBounds(450,500,120,50);
+        close.setBounds(450, 500, 120, 50);
         contentPane.add(close);
-        close.addActionListener((ActionEvent e)->{
+        close.addActionListener((ActionEvent e) -> {
             System.exit(0);
         });
 
 
-        
-
-       // contentPane.add(playerCards);
+        // contentPane.add(playerCards);
         setVisible(true);
-
-
-
-
-
-
-
 
 
     }
@@ -219,20 +210,21 @@ public class GameGUI extends JFrame implements ActionListener {
 
     }
 
-   public JLabel displayPlayerCardLabel(){
+    public JLabel displayPlayerCardLabel() {
 
-        int xpoint[] =new int[]{50,125,200,275,350,425};
+        int xpoint[] = new int[]{50, 125, 200, 275, 350, 425};
+
 
 
         BufferedImage image = playerCards.get(playerCardCounter).getImage();
         //ImageIO.read(new File("Resources\\h2.bmp"));
         JLabel jLabel = new JLabel(new ImageIcon(image));
         jLabel.setLayout(null);
-        jLabel.setBounds(xpoint[playerCardCounter],300,100,100);
+        jLabel.setBounds(xpoint[playerCardCounter], 300, 100, 100);
         stickTotal += playerCards.get(playerCardCounter).getNumber();
 
         System.out.println(stickTotal);
-       playerCardCounter++;
+        playerCardCounter++;
 
 
         return jLabel;
@@ -240,18 +232,21 @@ public class GameGUI extends JFrame implements ActionListener {
     }
 
 
-    public JLabel displayDealerCardLabel(){
+    public JLabel displayDealerCardLabel() {
 
-        int xpoint[] =new int[]{50,125,200,275,350,425};
+        int xpoint[] = new int[]{50, 125, 200, 275, 350, 425};
 
 
         BufferedImage image = dealerCards.get(dealerCardCounter).getImage();
         //ImageIO.read(new File("Resources\\h2.bmp"));
         JLabel jLabel = new JLabel(new ImageIcon(image));
         jLabel.setLayout(null);
-        jLabel.setBounds(xpoint[dealerCardCounter],100,100,100);
-        dealerCardCounter++;
+        jLabel.setBounds(xpoint[dealerCardCounter], 100, 100, 100);
+        dealerTotal += dealerCards.get(dealerCardCounter).getNumber();
+        System.out.println(dealerTotal);
 
+
+        dealerCardCounter++;
 
 
         return jLabel;
@@ -259,4 +254,46 @@ public class GameGUI extends JFrame implements ActionListener {
     }
 
 
+    public Card Dealing(int stickTotal) {
+
+
+
+
+        if (dealerTotal > stickTotal) {
+            dealerCards.add(deck.returnCard());
+            JOptionPane.showMessageDialog(null, "Unlucky You Lost");
+
+
+
+            contentPane.add(displayDealerCardLabel());
+        }
+
+
+        return null;
+    }
+
+    public static void playHand() throws IOException {
+        player.setBalance(player.getBalance() - player.getBet());
+
+
+        playerCards = new ArrayList<Card>();
+        dealerCards = new ArrayList<Card>();
+        playerCardCounter = 0;
+        dealerCardCounter = 0;
+
+
+        playerCards.add(deck.returnCard());
+        // playerValue += deck.returnCard().getNumber();
+
+        playerCards.add(deck.returnCard());
+        //playerValue += deck.returnCard().getNumber();
+
+        dealerCards.add(deck.returnCard());
+
+
+        GameGUI game = new GameGUI();
+
+
+
+    }
 }
