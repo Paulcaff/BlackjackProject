@@ -3,10 +3,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
+import java.io.*;
 
 /**
  *   JMenuFrame: includes one JMenuBar,2 JMenus and 8 JMenuItem objects.
@@ -21,6 +18,7 @@ public class BlackjackStartMenu extends JFrame implements ActionListener {
     private static BlackjackStartMenu frame;
     String username;
     double balance;
+
 
 
 
@@ -120,7 +118,7 @@ public class BlackjackStartMenu extends JFrame implements ActionListener {
         item.addActionListener((ActionEvent e)->{
 
             username = JOptionPane.showInputDialog("Please enter your username here :");
-            loadProfile();
+            //loadProfile();
 
         });
 
@@ -138,23 +136,10 @@ public class BlackjackStartMenu extends JFrame implements ActionListener {
         rules = new JMenu("Rules");
         rules.addActionListener((ActionEvent e)->{
 
-
         });
-
-
-
 
     }
 
-    public static void loadProfile(){
-        /*File file = new File("Player.dat");
-        FileInputStream fis = new FileInputStream(file);
-        ObjectInputStream ois = new ObjectInputStream(fis);
-
-        Player player = ois.readObject();
-        ois.close();
-
-    */}
 
 }
 

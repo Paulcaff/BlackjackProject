@@ -3,8 +3,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 
 public class GameGUI extends JFrame implements ActionListener {
@@ -28,6 +27,7 @@ public class GameGUI extends JFrame implements ActionListener {
     static Deck deck;
     int stickTotal;
     int dealerTotal;
+    static ArrayList<Player> savePlayers;
 
 
 
@@ -158,11 +158,12 @@ public class GameGUI extends JFrame implements ActionListener {
         stick.addActionListener((ActionEvent e) -> {
 
             newCard.setVisible(false);
+            mainLabelback.setVisible(false);
 
             Dealing(stickTotal);
 
 
-            mainLabelback.setVisible(false);
+
             repaint();
 
         });
@@ -277,11 +278,17 @@ public class GameGUI extends JFrame implements ActionListener {
         while (dealerTotal < stickTotal) {
             dealerCards.add(deck.returnCard());
             contentPane.add(displayDealerCardLabel());
+            repaint();
                     }
 
         if(dealerTotal > 21){
             JOptionPane.showMessageDialog(null,"Congratulations You Won This Time");
             player.setBalance(player.getBalance() + (player.getBet()*2));
+        }
+
+        else if (dealerTotal > stickTotal && dealerTotal < 22){
+            JOptionPane.showMessageDialog(null,"Unlucky Punk");
+
         }
 
         try {
@@ -324,9 +331,26 @@ public class GameGUI extends JFrame implements ActionListener {
 
         }
 
+    }
 
 
+    public static void loadProfile() throws IOException, ClassNotFoundException {
+        File file = new File("Player.dat");
+        FileInputStream fis = new FileInputStream(file);
+        ObjectInputStream ois = new ObjectInputStream(fis);
 
+        savePlayers = (ArrayList<Player>) ois.readObject();
+        ois.close();
+
+    }
+
+    public static void saveProfile() throws IOException {
+        File file = new File("Player.dat");
+        FileOutputStream fis = new FileOutputStream(file);
+        ObjectOutputStream ois = new ObjectOutputStream(fis);
+
+        ois.writeObject(savePlayers);
+        ois.close();
 
     }
 }
