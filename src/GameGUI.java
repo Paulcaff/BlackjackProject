@@ -149,6 +149,13 @@ public class GameGUI extends JFrame implements ActionListener {
         // construct 3 buttons
         stick = new JButton("Stick");
         stick.setBounds(50, 500, 120, 50);
+        if(stickTotal > 16) {
+            stick.setVisible(true);
+        }
+
+        else{
+            stick.setVisible(false);
+        }
         contentPane.add(stick);
         stick.addActionListener((ActionEvent e) -> {
 
@@ -157,7 +164,6 @@ public class GameGUI extends JFrame implements ActionListener {
             Dealing(stickTotal);
 
 
-            //contentPane.add(displayDealerCardLabel());
             mainLabelback.setVisible(false);
             repaint();
 
@@ -177,6 +183,14 @@ public class GameGUI extends JFrame implements ActionListener {
 
                contentPane.add(displayPlayerCardLabel());
                repaint();
+
+            if(stickTotal > 16 && stickTotal < 22) {
+                stick.setVisible(true);
+                            }
+
+
+
+
 
             if(stickTotal > 21) {
                 JOptionPane.showMessageDialog(null, "Unlucky You Lost");
@@ -259,13 +273,16 @@ public class GameGUI extends JFrame implements ActionListener {
 
 
 
-        if (dealerTotal > stickTotal) {
+        while (dealerTotal < stickTotal) {
             dealerCards.add(deck.returnCard());
-            JOptionPane.showMessageDialog(null, "Unlucky You Lost");
-
-
-
             contentPane.add(displayDealerCardLabel());
+
+            if(dealerTotal > 21){
+                JOptionPane.showMessageDialog(null,"Congratulations You Won This Time");
+            }
+            else{
+                JOptionPane.showMessageDialog(null,"Unlucky,Better Luck Next Time");
+            }
         }
 
 
