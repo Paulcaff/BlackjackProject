@@ -93,6 +93,7 @@ public class GameGUI extends JFrame implements ActionListener {
         setResizable(false);
 
 
+
         // get the content pane and set properties
         contentPane = getContentPane();
         contentPane.setBackground(new Color(50, 100, 20));
@@ -222,6 +223,7 @@ public class GameGUI extends JFrame implements ActionListener {
         }
 
 
+
     }
 
     @Override
@@ -263,11 +265,7 @@ public class GameGUI extends JFrame implements ActionListener {
         jLabel.setBounds(xpoint[dealerCardCounter], 100, 100, 100);
         dealerTotal += dealerCards.get(dealerCardCounter).getNumber();
 
-
-
         dealerCardCounter++;
-
-
 
         return jLabel;
 
@@ -285,9 +283,7 @@ public class GameGUI extends JFrame implements ActionListener {
             JOptionPane.showMessageDialog(null,"Congratulations You Won This Time");
             player.setBalance(player.getBalance() + (player.getBet()*2));
         }
-       /* else{
-            JOptionPane.showMessageDialog(null,"Unlucky,Better Luck Next Time");
-        }*/
+
         try {
             playHand();
         } catch (IOException e1) {
