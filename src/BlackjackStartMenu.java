@@ -4,6 +4,8 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  *   JMenuFrame: includes one JMenuBar,2 JMenus and 8 JMenuItem objects.
@@ -112,13 +114,12 @@ public class BlackjackStartMenu extends JFrame implements ActionListener {
 
 
 
-        item = new JMenuItem("Load Game");
+        item = new JMenuItem("Show Balances");
         item.addActionListener(this);
         game.add(item);
         item.addActionListener((ActionEvent e)->{
 
-            username = JOptionPane.showInputDialog("Please enter your username here :");
-            //loadProfile();
+            GameGUI.loadProfile();
 
         });
 

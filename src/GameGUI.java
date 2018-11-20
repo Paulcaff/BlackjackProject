@@ -8,13 +8,13 @@ import java.util.ArrayList;
 
 public class GameGUI extends JFrame implements ActionListener {
 
-    JButton stick;
-    JButton newCard;
-    JButton close;
-    JLabel dealer;
-    JLabel username;
-    JLabel gameBalance;
-    JLabel stake;
+    private JButton stick;
+    private JButton newCard;
+    private JButton close;
+    private JLabel dealer;
+    private JLabel username;
+    private JLabel gameBalance;
+    private JLabel stake;
     private static Player player;
     private static ArrayList<Card> playerCards;
     private static ArrayList<Card> dealerCards;
@@ -27,8 +27,7 @@ public class GameGUI extends JFrame implements ActionListener {
     static Deck deck;
     int stickTotal;
     int dealerTotal;
-    static ArrayList<Player> savePlayers;
-
+    static ArrayList<Player> savePlayers = new ArrayList<>();
 
 
     public static void main(String[] args) throws IOException {
@@ -42,44 +41,46 @@ public class GameGUI extends JFrame implements ActionListener {
         deck = new Deck();
         Deck.toShuffle();
 
-        String username = JOptionPane.showInputDialog(null, "Please enter your username :");
+            String username = JOptionPane.showInputDialog(null, "Please enter your username :");
 
-        while (!valid) {
+            while (!valid) {
 
-            balanceAsString = JOptionPane.showInputDialog(null, "Please enter the amount you want to deposit :");
-            betAsString = JOptionPane.showInputDialog(null, "Please enter the amount you want to bet:");
-
-
-            try {
-                balance = Double.parseDouble(balanceAsString);
-                bet = Double.parseDouble(betAsString);
+                balanceAsString = JOptionPane.showInputDialog(null, "Please enter the amount you want to deposit :");
+                betAsString = JOptionPane.showInputDialog(null, "Please enter the amount you want to bet:");
 
 
-                if (bet > balance || balance > 100000) {
-                    throw new betInputException();
+                try {
+                    balance = Double.parseDouble(balanceAsString);
+                    bet = Double.parseDouble(betAsString);
+
+
+                    if (bet > balance || balance > 100000) {
+                        throw new betInputException();
+                    }
+
+
+                    valid = true;
+                } catch (NumberFormatException e) {
+
+                    JOptionPane.showMessageDialog(null, "Please enter a valid number for your balance and how much you want to bet");
+
+                } catch (betInputException e) {
+
+                    JOptionPane.showMessageDialog(null, "You Cannot deposit more 100000 and you cant bet More than your balance!");
+
                 }
 
 
-                valid = true;
-            } catch (NumberFormatException e) {
-
-                JOptionPane.showMessageDialog(null, "Please enter a valid number for your balance and how much you want to bet");
-
-            } catch (betInputException e) {
-
-                JOptionPane.showMessageDialog(null, "You Cannot deposit more 100000 and you cant bet More than your balance!");
-
-            }
-
+            player = new Player(username, balance, bet);
 
         }
 
 
-        player = new Player(username, balance, bet);
+
+        //player = new Player(username, balance, bet);
+        savePlayers.add(player);
+        System.out.println(savePlayers.toString());
         playHand();
-
-
-
 
 
     }
@@ -91,7 +92,6 @@ public class GameGUI extends JFrame implements ActionListener {
         setLocation(250, 200);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
-
 
 
         // get the content pane and set properties
@@ -147,11 +147,9 @@ public class GameGUI extends JFrame implements ActionListener {
         // construct 3 buttons
         stick = new JButton("Stick");
         stick.setBounds(50, 500, 120, 50);
-        if(stickTotal > 16) {
+        if (stickTotal > 16) {
             stick.setVisible(true);
-        }
-
-        else{
+        } else {
             stick.setVisible(false);
         }
         contentPane.add(stick);
@@ -161,7 +159,6 @@ public class GameGUI extends JFrame implements ActionListener {
             mainLabelback.setVisible(false);
 
             Dealing(stickTotal);
-
 
 
             repaint();
@@ -175,25 +172,20 @@ public class GameGUI extends JFrame implements ActionListener {
         newCard.addActionListener((ActionEvent e) -> {
 
 
+            playerCards.add(deck.returnCard());
 
 
-               playerCards.add(deck.returnCard());
+            contentPane.add(displayPlayerCardLabel());
+            repaint();
 
-
-               contentPane.add(displayPlayerCardLabel());
-               repaint();
-
-            if(stickTotal > 16 && stickTotal < 22) {
+            if (stickTotal > 16 && stickTotal < 22) {
                 stick.setVisible(true);
             }
 
 
-
-
-
-
-            if(stickTotal > 21) {
+            if (stickTotal > 21) {
                 JOptionPane.showMessageDialog(null, "Unlucky You Lost");
+
                 stick.setVisible(false);
                 newCard.setVisible(false);
                 try {
@@ -209,6 +201,11 @@ public class GameGUI extends JFrame implements ActionListener {
         close.setBounds(450, 500, 120, 50);
         contentPane.add(close);
         close.addActionListener((ActionEvent e) -> {
+            try {
+                saveProfile();
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
             System.exit(0);
         });
 
@@ -216,13 +213,12 @@ public class GameGUI extends JFrame implements ActionListener {
         // contentPane.add(playerCards);
         setVisible(true);
 
-        if(dealerCardCounter + playerCardCounter  > 40){
+        if (dealerCardCounter + playerCardCounter > 40) {
             Deck deck2 = new Deck();
             Deck.toShuffle();
             dealerCardCounter = 0;
             playerCardCounter = 0;
         }
-
 
 
     }
@@ -237,7 +233,6 @@ public class GameGUI extends JFrame implements ActionListener {
         int xpoint[] = new int[]{50, 125, 200, 275, 350, 425};
 
 
-
         BufferedImage image = playerCards.get(playerCardCounter).getImage();
         //ImageIO.read(new File("Resources\\h2.bmp"));
         JLabel jLabel = new JLabel(new ImageIcon(image));
@@ -246,7 +241,6 @@ public class GameGUI extends JFrame implements ActionListener {
         stickTotal += playerCards.get(playerCardCounter).getNumber();
 
         playerCardCounter++;
-
 
 
         return jLabel;
@@ -279,15 +273,19 @@ public class GameGUI extends JFrame implements ActionListener {
             dealerCards.add(deck.returnCard());
             contentPane.add(displayDealerCardLabel());
             repaint();
-                    }
-
-        if(dealerTotal > 21){
-            JOptionPane.showMessageDialog(null,"Congratulations You Won This Time");
-            player.setBalance(player.getBalance() + (player.getBet()*2));
         }
 
-        else if (dealerTotal > stickTotal && dealerTotal < 22){
-            JOptionPane.showMessageDialog(null,"Unlucky Punk");
+        if (dealerTotal > 21) {
+            JOptionPane.showMessageDialog(null, "Congratulations You Won This Time");
+            player.setBalance(player.getBalance() + (player.getBet() * 2));
+            try {
+                saveProfile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        } else if (dealerTotal > stickTotal && dealerTotal < 22) {
+            JOptionPane.showMessageDialog(null, "Unlucky Punk");
 
         }
 
@@ -309,8 +307,6 @@ public class GameGUI extends JFrame implements ActionListener {
         dealerCardCounter = 0;
 
 
-
-
         playerCards.add(deck.returnCard());
 
         playerCards.add(deck.returnCard());
@@ -319,10 +315,10 @@ public class GameGUI extends JFrame implements ActionListener {
 
 
         GameGUI game = new GameGUI();
-        newDeckCounter ++;
+        newDeckCounter++;
         System.out.println(newDeckCounter);
 
-        if(newDeckCounter >= 10){
+        if (newDeckCounter >= 10) {
             Deck deck = new Deck();
             Deck.toShuffle();
             dealerCardCounter = 0;
@@ -334,23 +330,45 @@ public class GameGUI extends JFrame implements ActionListener {
     }
 
 
-    public static void loadProfile() throws IOException, ClassNotFoundException {
-        File file = new File("Player.dat");
-        FileInputStream fis = new FileInputStream(file);
-        ObjectInputStream ois = new ObjectInputStream(fis);
+    public static void loadProfile(){
 
-        savePlayers = (ArrayList<Player>) ois.readObject();
-        ois.close();
+        try {
+            File file = new File("Player.dat");
+            FileInputStream fis = new FileInputStream(file);
+            ObjectInputStream ois = new ObjectInputStream(fis);
+            savePlayers = (ArrayList<Player>) ois.readObject();
+            ois.close();
+        }
+        catch(FileNotFoundException e){
+            JOptionPane.showMessageDialog(null,"FileNotFound: didn't work");
+            e.printStackTrace();
+        }
+        catch(IOException e){
+            JOptionPane.showMessageDialog(null,"IOException: didn't work");
+            e.printStackTrace();
+        }
+        catch(Exception e){
+            JOptionPane.showMessageDialog(null,"open didn't work");
+            e.printStackTrace();
+
+
+        }
+
 
     }
 
     public static void saveProfile() throws IOException {
+
+
         File file = new File("Player.dat");
-        FileOutputStream fis = new FileOutputStream(file);
-        ObjectOutputStream ois = new ObjectOutputStream(fis);
+        FileOutputStream fos = new FileOutputStream(file);
+        ObjectOutputStream oos = new ObjectOutputStream(fos);
 
-        ois.writeObject(savePlayers);
-        ois.close();
-
+        oos.writeObject(savePlayers);
+        oos.close();
     }
+
 }
+
+
+
