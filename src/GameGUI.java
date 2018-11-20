@@ -24,6 +24,7 @@ public class GameGUI extends JFrame implements ActionListener {
     static int dealerValue = 0;
     static int playerCardCounter = 0;
     static int dealerCardCounter = 0;
+    static int newDeckCounter = 0;
     static Deck deck;
     int stickTotal;
     int dealerTotal;
@@ -54,7 +55,7 @@ public class GameGUI extends JFrame implements ActionListener {
                 bet = Double.parseDouble(betAsString);
 
 
-                if (bet > balance) {
+                if (bet > balance || balance > 100000) {
                     throw new betInputException();
                 }
 
@@ -66,7 +67,7 @@ public class GameGUI extends JFrame implements ActionListener {
 
             } catch (betInputException e) {
 
-                JOptionPane.showMessageDialog(null, "You Cannot bet More than your balance!");
+                JOptionPane.showMessageDialog(null, "You Cannot deposit more 100000 and you cant bet More than your balance!");
 
             }
 
@@ -106,19 +107,17 @@ public class GameGUI extends JFrame implements ActionListener {
 
         JLabel mainLabel = new JLabel(new ImageIcon(image));
 
-        System.out.println("a");
+
         mainLabel = displayPlayerCardLabel();
         contentPane.add(mainLabel);
 
-        System.out.println("b");
         mainLabel = displayPlayerCardLabel();
         contentPane.add(mainLabel);
 
-        System.out.println("c");
         mainLabel = displayDealerCardLabel();
         contentPane.add(mainLabel);
 
-        System.out.println("d");
+
         dealer = new JLabel("Dealer");
         dealer.setSize(250, 50); // optional
         dealer.setForeground(Color.white);
@@ -143,8 +142,6 @@ public class GameGUI extends JFrame implements ActionListener {
         username.setForeground(Color.white);
         username.setLocation(100, 400);
         contentPane.add(username);
-
-
 
         // construct 3 buttons
         stick = new JButton("Stick");
@@ -186,7 +183,8 @@ public class GameGUI extends JFrame implements ActionListener {
 
             if(stickTotal > 16 && stickTotal < 22) {
                 stick.setVisible(true);
-                            }
+            }
+
 
 
 
@@ -216,6 +214,13 @@ public class GameGUI extends JFrame implements ActionListener {
         // contentPane.add(playerCards);
         setVisible(true);
 
+        if(dealerCardCounter + playerCardCounter  > 40){
+            Deck deck2 = new Deck();
+            Deck.toShuffle();
+            dealerCardCounter = 0;
+            playerCardCounter = 0;
+        }
+
 
     }
 
@@ -237,8 +242,8 @@ public class GameGUI extends JFrame implements ActionListener {
         jLabel.setBounds(xpoint[playerCardCounter], 300, 100, 100);
         stickTotal += playerCards.get(playerCardCounter).getNumber();
 
-        System.out.println(stickTotal);
         playerCardCounter++;
+
 
 
         return jLabel;
@@ -257,10 +262,11 @@ public class GameGUI extends JFrame implements ActionListener {
         jLabel.setLayout(null);
         jLabel.setBounds(xpoint[dealerCardCounter], 100, 100, 100);
         dealerTotal += dealerCards.get(dealerCardCounter).getNumber();
-        System.out.println(dealerTotal);
+
 
 
         dealerCardCounter++;
+
 
 
         return jLabel;
@@ -270,22 +276,23 @@ public class GameGUI extends JFrame implements ActionListener {
 
     public Card Dealing(int stickTotal) {
 
-
-
-
         while (dealerTotal < stickTotal) {
             dealerCards.add(deck.returnCard());
             contentPane.add(displayDealerCardLabel());
+                    }
 
-            if(dealerTotal > 21){
-                JOptionPane.showMessageDialog(null,"Congratulations You Won This Time");
-            }
-            else{
-                JOptionPane.showMessageDialog(null,"Unlucky,Better Luck Next Time");
-            }
+        if(dealerTotal > 21){
+            JOptionPane.showMessageDialog(null,"Congratulations You Won This Time");
+            player.setBalance(player.getBalance() + (player.getBet()*2));
         }
-
-
+       /* else{
+            JOptionPane.showMessageDialog(null,"Unlucky,Better Luck Next Time");
+        }*/
+        try {
+            playHand();
+        } catch (IOException e1) {
+            e1.printStackTrace();
+        }
         return null;
     }
 
@@ -299,16 +306,29 @@ public class GameGUI extends JFrame implements ActionListener {
         dealerCardCounter = 0;
 
 
-        playerCards.add(deck.returnCard());
-        // playerValue += deck.returnCard().getNumber();
+
 
         playerCards.add(deck.returnCard());
-        //playerValue += deck.returnCard().getNumber();
+
+        playerCards.add(deck.returnCard());
 
         dealerCards.add(deck.returnCard());
 
 
         GameGUI game = new GameGUI();
+        newDeckCounter ++;
+        System.out.println(newDeckCounter);
+
+        if(newDeckCounter >= 10){
+            Deck deck = new Deck();
+            Deck.toShuffle();
+            dealerCardCounter = 0;
+            playerCardCounter = 0;
+            newDeckCounter = 0;
+
+        }
+
+
 
 
 

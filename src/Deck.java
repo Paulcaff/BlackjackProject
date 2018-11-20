@@ -59,10 +59,13 @@ public class Deck {
      *
      */
     public Card returnCard(){
-    dealCount++;
+        dealCount++;
+        if(dealCount > 45){
+            dealCount = 1;
+        }
+
     return deck[dealCount - 1];
     }
-
 
     /**
      * This is the toString Method
