@@ -1,22 +1,24 @@
+import javax.swing.*;
 import java.io.Serializable;
 
 public class Player implements Serializable {
     private String username;
     private double balance;
     private double bet;
+    private boolean valid;
+    private String balanceAsString;
+    private String betAsString;
 
 
 //No argument Constructo
-    public Player(){
-        this.username = "Not Set";
-        this.balance = 0;
-        this.bet = 0;
+    public Player(String username,double balance,double bet){
+        setUsername(username);
+        setBalance(balance);
+        setBet(bet);
     }
 //3 Argument constructor
-    public Player(String username,double balance,double bet ){
-        setBalance(balance);
-        setUsername(username);
-        setBet(bet);
+    public Player() {
+
     }
 
 

@@ -31,54 +31,13 @@ public class GameGUI extends JFrame implements ActionListener {
 
 
     public static void main(String[] args) throws IOException {
-        String balanceAsString;
-        double balance = 0;
-        String betAsString;
-        double bet = 0;
-        boolean valid = false;
-
 
         deck = new Deck();
         Deck.toShuffle();
 
-            String username = JOptionPane.showInputDialog(null, "Please enter your username :");
-
-            while (!valid) {
-
-                balanceAsString = JOptionPane.showInputDialog(null, "Please enter the amount you want to deposit :");
-                betAsString = JOptionPane.showInputDialog(null, "Please enter the amount you want to bet:");
-
-
-                try {
-                    balance = Double.parseDouble(balanceAsString);
-                    bet = Double.parseDouble(betAsString);
-
-
-                    if (bet > balance || balance > 100000) {
-                        throw new betInputException();
-                    }
-
-
-                    valid = true;
-                } catch (NumberFormatException e) {
-
-                    JOptionPane.showMessageDialog(null, "Please enter a valid number for your balance and how much you want to bet");
-
-                } catch (betInputException e) {
-
-                    JOptionPane.showMessageDialog(null, "You Cannot deposit more 100000 and you cant bet More than your balance!");
-
-                }
-
-
-            player = new Player(username, balance, bet);
-
-        }
-
-
-
-        //player = new Player(username, balance, bet);
+        //makePlayer();
         savePlayers.add(player);
+
         System.out.println(savePlayers.toString());
         playHand();
 
@@ -189,6 +148,10 @@ public class GameGUI extends JFrame implements ActionListener {
                 stick.setVisible(false);
                 newCard.setVisible(false);
                 try {
+                    if(player.getBet() > player.getBalance()) {
+                        JOptionPane.showMessageDialog(null, "Unlucky, you ran out of money");
+                        System.exit(0);
+                    }
                     playHand();
                 } catch (IOException e1) {
                     e1.printStackTrace();
@@ -206,7 +169,13 @@ public class GameGUI extends JFrame implements ActionListener {
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
-            System.exit(0);
+            setVisible(false);
+            try {
+                BlackjackStartMenu.main(null);
+            }
+            catch (IOException e1) {
+                e1.printStackTrace();
+            }
         });
 
 
@@ -219,6 +188,8 @@ public class GameGUI extends JFrame implements ActionListener {
             dealerCardCounter = 0;
             playerCardCounter = 0;
         }
+
+
 
 
     }
@@ -290,6 +261,11 @@ public class GameGUI extends JFrame implements ActionListener {
         }
 
         try {
+            if(player.getBet() > player.getBalance()) {
+                JOptionPane.showMessageDialog(null, "Unlucky, you ran out of money");
+                System.exit(0);
+            }
+
             playHand();
         } catch (IOException e1) {
             e1.printStackTrace();
@@ -314,7 +290,7 @@ public class GameGUI extends JFrame implements ActionListener {
         dealerCards.add(deck.returnCard());
 
 
-        GameGUI game = new GameGUI();
+        new GameGUI();
         newDeckCounter++;
         System.out.println(newDeckCounter);
 
@@ -338,6 +314,8 @@ public class GameGUI extends JFrame implements ActionListener {
             ObjectInputStream ois = new ObjectInputStream(fis);
             savePlayers = (ArrayList<Player>) ois.readObject();
             ois.close();
+
+            System.out.println(savePlayers.get(0).toString());
         }
         catch(FileNotFoundException e){
             JOptionPane.showMessageDialog(null,"FileNotFound: didn't work");
@@ -366,6 +344,62 @@ public class GameGUI extends JFrame implements ActionListener {
 
         oos.writeObject(savePlayers);
         oos.close();
+    }
+
+    public static void loadPlayer(){
+        boolean found = false;
+        String username = JOptionPane.showInputDialog(null, "Please enter your username :");
+        loadProfile();
+        for(int i=0; i<savePlayers.size(); i++){
+            System.out.println("cccc"+savePlayers.get(i).getUsername());
+            System.out.println("kkkk"+username);
+            if(savePlayers.get(i).getUsername().equals(username)){
+                player = savePlayers.get(i);
+                found = true;
+                break;
+            }
+        }
+        if (!found){
+            JOptionPane.showMessageDialog(null, "no valid username");
+            makePlayer();
+        }
+        player = savePlayers.get(0);
+    }
+    public static void makePlayer(){
+        boolean valid = false;
+        Double bet = 0.0;
+        Double balance = 0.0;
+        String username = JOptionPane.showInputDialog(null, "Please enter your username :");
+
+        while (!valid) {
+
+            String balanceAsString = JOptionPane.showInputDialog(null, "Please enter the amount you want to deposit :");
+            String betAsString = JOptionPane.showInputDialog(null, "Please enter the amount you want to bet:");
+
+
+            try {
+                balance = Double.parseDouble(balanceAsString);
+                bet = Double.parseDouble(betAsString);
+
+
+                if (bet > balance || balance > 100000) {
+                    throw new betInputException();
+                }
+
+
+                valid = true;
+            } catch (NumberFormatException e) {
+
+                JOptionPane.showMessageDialog(null, "Please enter a valid number for your balance and how much you want to bet");
+
+            } catch (betInputException e) {
+
+                JOptionPane.showMessageDialog(null, "You Cannot deposit more 100000 and you cant bet More than your balance!");
+
+            }
+
+        }
+        player = new Player(username, balance, bet);
     }
 
 }

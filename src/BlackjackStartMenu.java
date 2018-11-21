@@ -101,6 +101,7 @@ public class BlackjackStartMenu extends JFrame implements ActionListener {
         item.addActionListener((ActionEvent e)->{
 
 
+            GameGUI.makePlayer();
             frame.setVisible(false);
 
             try {
@@ -114,12 +115,21 @@ public class BlackjackStartMenu extends JFrame implements ActionListener {
 
 
 
-        item = new JMenuItem("Show Balances");
+        item = new JMenuItem("Load game");
         item.addActionListener(this);
         game.add(item);
         item.addActionListener((ActionEvent e)->{
 
-            GameGUI.loadProfile();
+            GameGUI.loadPlayer();
+
+
+            frame.setVisible(false);
+
+            try {
+                GameGUI.main(null);
+            } catch (IOException e1) {
+                e1.printStackTrace();
+            }
 
         });
 
