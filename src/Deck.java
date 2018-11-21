@@ -56,7 +56,8 @@ public class Deck {
      * this method return the position of the a card in the deck that is to be used in the deal
      * and dishing out of the cards.
      * it keeps track of how many cards are dealt and is used for the dealing of the next card
-     *
+     *in truth..i had a problem of the deck changing but the running of the DealCount going over 52
+     * so i was getting a null pointer exception so after 45 cards i reset it to 1.
      */
     public Card returnCard(){
         dealCount++;

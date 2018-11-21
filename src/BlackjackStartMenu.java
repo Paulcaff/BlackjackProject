@@ -4,26 +4,12 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Objects;
 
-/**
- *   JMenuFrame: includes one JMenuBar,2 JMenus and 8 JMenuItem objects.
- *   When a menu item is selected, a string
- *   showing which menu choice is selected will appear in a label on the frame.
- */
 public class BlackjackStartMenu extends JFrame implements ActionListener {
 
     private JMenu game;
     private JMenu rules;
-    private JPanel imagePanel;
     private static BlackjackStartMenu frame;
-    String username;
-    double balance;
-
-
-
-
 
 
     public static void main(String[] args) throws IOException {
@@ -44,50 +30,38 @@ public class BlackjackStartMenu extends JFrame implements ActionListener {
         setSize(500, 500);
         setResizable(false);
         setLocation(250, 200);
-        // shut down the program when the window is closed
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-       // cPane = getContentPane();
-        //cPane.setLayout(null);
 
-
+//code adapted from https://stackoverflow.com/questions/601274/how-do-i-properly-load-a-bufferedimage-in-java
         BufferedImage image = ImageIO.read(new File("Resources\\Blackjack.jpg"));
         JLabel mainLabel = new JLabel(new ImageIcon(image));
         mainLabel.setLayout(null);
         mainLabel.setSize(1000,1000);
-        mainLabel.setBackground(Color.red);
         cPane.add(mainLabel);
 
 
-
+//These 2 methods are getting items that are being added to the menubar
         createGameMenu();
         createRulesMenu();
 
-
-
-
-        //and add them to the menubar
+ //and this adds them to the menubar
         JMenuBar menuBar = new JMenuBar();
         setJMenuBar(menuBar);
         menuBar.setBackground(Color.cyan);
         menuBar.add(game);
         menuBar.add(rules);
 
-        //cPane.add(menuBar);
+    }
 
+  //My Action Listeners ae empty as i used Lambdas
+    public void actionPerformed(ActionEvent event) {
 
     }
 
-    /**
-     * when an item is clicked, response starts here
-     */
-    public void actionPerformed(ActionEvent event) {
 
-    } // end actionPerformend
+     // Creates File menu and its menu items
 
-    /**
-     * Creates File menu and its menu items
-     */
     private void createGameMenu() {
         JMenuItem item;
 
@@ -98,6 +72,7 @@ public class BlackjackStartMenu extends JFrame implements ActionListener {
         item = new JMenuItem("New Game");
         item.addActionListener(this);
         game.add(item);
+
         item.addActionListener((ActionEvent e)->{
 
 

@@ -9,7 +9,7 @@ import java.io.Serializable;
   * the gameplay. i also created accessor methods and mutator methods as i will
   * need to change the value of the attributes as well as reading the attributes
   * i.e. reading username to load in previous balance
-  * I also created a toString for when i needed a String repreentation of the object
+  * I also created a toString for when i needed a String repreentation of the object.
  * @author  Paul Cafferkey
  * @version 1.0
  * @since   21-11-2018

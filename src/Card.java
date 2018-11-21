@@ -35,7 +35,6 @@ public class Card {
         this.value = value;
     }
 
-
     public void setNumber(int number) {
         this.number = number;
     }
@@ -116,20 +115,17 @@ public class Card {
     public BufferedImage getImage() {
         return image;
     }
+
 //sets the path back to the resource file to the image associated with it
     public void setImage(BufferedImage image) throws IOException {
         String str = "Resources\\"+getSuit()+""+getValue()+".bmp";
-
+//code adapted from... https://stackoverflow.com/questions/601274/how-do-i-properly-load-a-bufferedimage-in-java
         this.image = ImageIO.read(new File(str));
     }
 
+    //My toString Methods
     public String toString(){
         return "\nCard:"+value+" "+ suit  + "\nNumber Value : "+number;
     }
-
-    public String cardString(){
-        return ""+value+" "+ suit+ "\n\n\n        "+value+" "+ suit;
-    }
-
 
 }

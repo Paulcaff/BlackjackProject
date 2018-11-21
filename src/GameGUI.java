@@ -19,8 +19,6 @@ public class GameGUI extends JFrame implements ActionListener {
     private static ArrayList<Card> playerCards;
     private static ArrayList<Card> dealerCards;
     static Container contentPane;
-    static int playerValue = 0;
-    static int dealerValue = 0;
     static int playerCardCounter = 0;
     static int dealerCardCounter = 0;
     static int newDeckCounter = 0;
@@ -35,10 +33,8 @@ public class GameGUI extends JFrame implements ActionListener {
         deck = new Deck();
         Deck.toShuffle();
 
-        //makePlayer();
         savePlayers.add(player);
 
-        System.out.println(savePlayers.toString());
         playHand();
 
 
@@ -53,10 +49,11 @@ public class GameGUI extends JFrame implements ActionListener {
         setResizable(false);
 
 
-        // get the content pane and set properties
+ // get the content pane and set properties
         contentPane = getContentPane();
         contentPane.setBackground(new Color(50, 100, 20));
-        contentPane.setLayout(null); // so that we can use absolute positioning
+ // so that we can use absolute positioning
+        contentPane.setLayout(null);
 
         BufferedImage image = ImageIO.read(new File("Resources\\back.bmp"));
         JLabel mainLabelback = new JLabel(new ImageIcon(image));
@@ -65,7 +62,7 @@ public class GameGUI extends JFrame implements ActionListener {
         contentPane.add(mainLabelback);
 
 
-        JLabel mainLabel = new JLabel(new ImageIcon(image));
+        JLabel mainLabel;
 
 
         mainLabel = displayPlayerCardLabel();
@@ -164,12 +161,13 @@ public class GameGUI extends JFrame implements ActionListener {
         close.setBounds(450, 500, 120, 50);
         contentPane.add(close);
         close.addActionListener((ActionEvent e) -> {
+            setVisible(false);
             try {
                 saveProfile();
             } catch (IOException e1) {
                 e1.printStackTrace();
             }
-            setVisible(false);
+
             try {
                 BlackjackStartMenu.main(null);
             }
@@ -365,6 +363,8 @@ public class GameGUI extends JFrame implements ActionListener {
         }
         player = savePlayers.get(0);
     }
+
+
     public static void makePlayer(){
         boolean valid = false;
         Double bet = 0.0;
