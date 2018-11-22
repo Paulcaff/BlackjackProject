@@ -27,6 +27,14 @@ public class Deck {
     }
 
 
+    public int getDealCount() {
+        return dealCount;
+    }
+
+    public void setDealCount(int dealCount) {
+        this.dealCount = dealCount;
+    }
+
     /**
      * this is the method i created to shuffle the deck i just created
      * i have created a deck object that holds 52 card objects.
@@ -61,9 +69,6 @@ public class Deck {
      */
     public Card returnCard(){
         dealCount++;
-        if(dealCount > 45){
-            dealCount = 1;
-        }
 
     return deck[dealCount - 1];
     }

@@ -54,7 +54,7 @@ public class BlackjackStartMenu extends JFrame implements ActionListener {
 
     }
 
-  //My Action Listeners ae empty as i used Lambdas
+  //My Action Listeners ae empty as I used Lambdas
     public void actionPerformed(ActionEvent event) {
 
     }

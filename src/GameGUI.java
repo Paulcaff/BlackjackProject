@@ -31,7 +31,7 @@ public class GameGUI extends JFrame implements ActionListener {
     public static void main(String[] args) throws IOException {
 
         deck = new Deck();
-        Deck.toShuffle();
+        deck.toShuffle();
 
         savePlayers.add(player);
 
@@ -149,6 +149,8 @@ public class GameGUI extends JFrame implements ActionListener {
                         JOptionPane.showMessageDialog(null, "Unlucky, you ran out of money");
                         System.exit(0);
                     }
+
+                    dispose();
                     playHand();
                 } catch (IOException e1) {
                     e1.printStackTrace();
@@ -258,16 +260,30 @@ public class GameGUI extends JFrame implements ActionListener {
 
         }
 
-        try {
-            if(player.getBet() > player.getBalance()) {
-                JOptionPane.showMessageDialog(null, "Unlucky, you ran out of money");
-                System.exit(0);
-            }
-
-            playHand();
-        } catch (IOException e1) {
-            e1.printStackTrace();
+        if(player.getBet() > player.getBalance()) {
+            JOptionPane.showMessageDialog(null, "Unlucky, you ran out of money");
+            System.exit(0);
         }
+
+        if(deck.getDealCount() > 40){
+            try {
+                deck = new Deck();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            deck.toShuffle();
+            deck.setDealCount(1);
+            System.out.println(("yyyyy"));
+        }
+
+
+        dispose();
+        try {
+            playHand();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         return null;
     }
 
@@ -290,7 +306,7 @@ public class GameGUI extends JFrame implements ActionListener {
 
         new GameGUI();
         newDeckCounter++;
-        System.out.println(newDeckCounter);
+        System.out.println(deck.getDealCount());
 
         if (newDeckCounter >= 10) {
             Deck deck = new Deck();
