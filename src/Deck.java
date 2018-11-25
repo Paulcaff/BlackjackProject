@@ -70,6 +70,10 @@ public class Deck {
     public Card returnCard(){
         dealCount++;
 
+        if(dealCount > 45){
+            dealCount = 1;
+        }
+
     return deck[dealCount - 1];
     }
 

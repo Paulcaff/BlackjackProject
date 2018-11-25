@@ -55,6 +55,7 @@ public class GameGUI extends JFrame implements ActionListener {
  // so that we can use absolute positioning
         contentPane.setLayout(null);
 
+//code adapted from... https://stackoverflow.com/questions/601274/how-do-i-properly-load-a-bufferedimage-in-java
         BufferedImage image = ImageIO.read(new File("Resources\\back.bmp"));
         JLabel mainLabelback = new JLabel(new ImageIcon(image));
         mainLabelback.setLayout(null);
@@ -199,6 +200,12 @@ public class GameGUI extends JFrame implements ActionListener {
 
     }
 
+    /**
+     *This method uses a card counter to select where on the screen the card
+     * is to be positoned from an array of coordinates.
+     * the image is positioned on the label which then takes the coordinates to set the bounds
+     */
+
     public JLabel displayPlayerCardLabel() {
 
         int xpoint[] = new int[]{50, 125, 200, 275, 350, 425};
@@ -218,6 +225,7 @@ public class GameGUI extends JFrame implements ActionListener {
 
     }
 
+    // See displayPlayerCardLabel Method description
 
     public JLabel displayDealerCardLabel() {
 
@@ -236,6 +244,12 @@ public class GameGUI extends JFrame implements ActionListener {
         return jLabel;
 
     }
+
+/**this is the code i used in my gameplay.you cant stick at 16 or under.
+ * that if the dealer total is less than the player total to get another card
+ * that if the dealer total exceeds 21 the player wins
+ * and if your bet stake is greater than your balance you cant play
+ */
 
 
     public Card Dealing(int stickTotal) {
@@ -287,6 +301,12 @@ public class GameGUI extends JFrame implements ActionListener {
         return null;
     }
 
+    /**
+     * gives the player 2 cards and the dealer a card
+     * after 10 hands a new deck is created
+     *
+     *
+     */
     public static void playHand() throws IOException {
         player.setBalance(player.getBalance() - player.getBet());
 
@@ -306,7 +326,7 @@ public class GameGUI extends JFrame implements ActionListener {
 
         new GameGUI();
         newDeckCounter++;
-        System.out.println(deck.getDealCount());
+
 
         if (newDeckCounter >= 10) {
             Deck deck = new Deck();
@@ -319,7 +339,8 @@ public class GameGUI extends JFrame implements ActionListener {
 
     }
 
-
+//my effort to load the player details into the game. the balance should be retrieved when a user
+//name matches with 1 in the arrayList that stores the player details.
     public static void loadProfile(){
 
         try {
@@ -348,6 +369,7 @@ public class GameGUI extends JFrame implements ActionListener {
 
 
     }
+//this saves the arrayList of players to the Player.dat file
 
     public static void saveProfile() throws IOException {
 
@@ -365,8 +387,7 @@ public class GameGUI extends JFrame implements ActionListener {
         String username = JOptionPane.showInputDialog(null, "Please enter your username :");
         loadProfile();
         for(int i=0; i<savePlayers.size(); i++){
-            System.out.println("cccc"+savePlayers.get(i).getUsername());
-            System.out.println("kkkk"+username);
+
             if(savePlayers.get(i).getUsername().equals(username)){
                 player = savePlayers.get(i);
                 found = true;
